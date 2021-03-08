@@ -280,7 +280,7 @@ class _ViewCourseState extends State<ViewCourse> {
                                       final docid = message.id;
 
                                       for (var k = 0;
-                                          k < syllabus.length;
+                                          k < syllabus.length + 1;
                                           k++) {
                                         if (k.toString() == docid) {
                                           print("true");

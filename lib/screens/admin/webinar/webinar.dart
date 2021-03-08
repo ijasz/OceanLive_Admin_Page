@@ -1,5 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:intl/intl.dart';
+import 'package:ocean_live/screens/admin/webinar/edit_alert/Content1_EditAlert.dart';
 import 'package:ocean_live/screens/admin/webinar/screens/content1.dart';
 import 'package:ocean_live/screens/admin/webinar/screens/content2.dart';
 import 'package:ocean_live/screens/admin/webinar/screens/content3.dart';
@@ -1007,6 +1008,8 @@ class Dbcontent extends StatefulWidget {
 }
 
 class _DbcontentState extends State<Dbcontent> {
+  delete() {}
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -1063,7 +1066,10 @@ class _DbcontentState extends State<Dbcontent> {
                         hoverColor: Colors.grey[100],
                         hoverElevation: 0,
                         color: Colors.white60,
-                        onPressed: () {},
+                        onPressed: () {
+                          displayDialog(
+                              context: context, name: Content1EditAlert());
+                        },
                         child: Icon(Icons.edit_outlined),
                       ),
                     ),
@@ -1078,7 +1084,59 @@ class _DbcontentState extends State<Dbcontent> {
                         hoverColor: Colors.grey[200],
                         hoverElevation: 0,
                         color: Colors.white60,
-                        onPressed: () {},
+                        onPressed: () {
+                          StreamBuilder<QuerySnapshot>(
+                              stream: _firestore
+                                  .collection('free_webinar')
+                                  .where(widget.courses)
+                                  .snapshots(),
+                              // ignore: missing_return
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Text("Loading.....");
+                                } else {
+                                  final messages = snapshot.data.docs;
+                                  print(
+                                      '${messages}  ////1100 Webinar documents');
+                                  List<Dbcontent> upcoming = [];
+                                  for (var message in messages) {
+                                    final dbTrainerImage =
+                                        message.data()['trainer image'];
+                                    final dbTrainerName =
+                                        message.data()['trainer name'];
+                                    final dbCourse = message.data()['course'];
+                                    final dbPayment = message.data()['payment'];
+                                    final dbTimeStamp =
+                                        message.data()['timestamp'];
+                                  }
+                                }
+                              });
+                          // StreamBuilder<QuerySnapshot>(
+                          //     stream: _firestore
+                          //         .collection('paid_webinar')
+                          //         .snapshots(),
+                          //     // ignore: missing_return
+                          //     builder: (context, snapshot) {
+                          //       if (!snapshot.hasData) {
+                          //         return Text("Loading.....");
+                          //       } else {
+                          //         final messages = snapshot.data.docs;
+                          //         print(
+                          //             '${messages}  ////259 Webinar documents');
+                          //         List<Dbcontent> upcoming = [];
+                          //         for (var message in messages) {
+                          //           final dbTrainerImage =
+                          //               message.data()['trainer image'];
+                          //           final dbTrainerName =
+                          //               message.data()['trainer name'];
+                          //           final dbCourse = message.data()['course'];
+                          //           final dbPayment = message.data()['payment'];
+                          //           final dbTimeStamp =
+                          //               message.data()['timestamp'];
+                          //         }
+                          //       }
+                          //     });
+                        },
                         child: Icon(Icons.delete_outline_outlined),
                       ),
                     ),

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4c1a96c-3111-4ddd-b906-518ab3d27fee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/webinar.dart" afterDir="false" />
+    <list default="true" id="a4c1a96c-3111-4ddd-b906-518ab3d27fee" name="Default Changelist" comment="changed webinar">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/course/view_course.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/course/view_course.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content3.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/webinar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/webinar.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,33 +61,57 @@
       <option name="presentableId" value="Default" />
       <updated>1614856899748</updated>
     </task>
+    <task id="LOCAL-00001" summary="changed webinar">
+      <created>1615202342195</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615202342195</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="changed webinar" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed webinar" />
   </component>
   <component name="WindowStateProjectService">
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1615018158716">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615018158716" />
-    <state width="1877" height="186" key="GridCell.Tab.0.bottom" timestamp="1615200911613">
+    <state x="801" y="418" key="Github.ShareDialog" timestamp="1615202543984">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615200911613" />
-    <state width="1877" height="186" key="GridCell.Tab.0.center" timestamp="1615200911612">
+    <state x="801" y="418" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615202543984" />
+    <state width="1877" height="216" key="GridCell.Tab.0.bottom" timestamp="1615203357151">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615200911612" />
-    <state width="1877" height="186" key="GridCell.Tab.0.left" timestamp="1615200911612">
+    <state width="1877" height="216" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615203357151" />
+    <state width="1877" height="216" key="GridCell.Tab.0.center" timestamp="1615203357151">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615200911612" />
-    <state width="1877" height="186" key="GridCell.Tab.0.right" timestamp="1615200911613">
+    <state width="1877" height="216" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615203357151" />
+    <state width="1877" height="216" key="GridCell.Tab.0.left" timestamp="1615203357151">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="186" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615200911613" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1615018138394">
+    <state width="1877" height="216" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615203357151" />
+    <state width="1877" height="216" key="GridCell.Tab.0.right" timestamp="1615203357151">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1615018138394" />
+    <state width="1877" height="216" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615203357151" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1615202008514">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1615202008514" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1615202473921">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1615202473921" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1615202382294">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1615202382294" />
     <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1615181270590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
