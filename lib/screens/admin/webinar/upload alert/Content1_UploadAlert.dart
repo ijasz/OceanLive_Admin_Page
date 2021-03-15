@@ -452,10 +452,7 @@ class _Content1UploadAlertState extends State<Content1UploadAlert> {
                           '${widget.get} //////////////// 458///////////////////');
                       //adding collection
                       _firestore
-                          .collection(Content1.paymentController == null ||
-                                  Content1.paymentController.text.isEmpty
-                              ? 'free_webinar'
-                              : 'paid_webinar')
+                          .collection('Webinar')
                           .doc(Content1UploadAlert.courseController.text)
                           .set({
                         'trainer name': trainerName,
@@ -469,6 +466,7 @@ class _Content1UploadAlertState extends State<Content1UploadAlert> {
                         'payment': Content1.paymentController.text.isEmpty
                             ? 'free'
                             : Content1.paymentController.text,
+                        'student enrolled': int.parse('100')
                       });
                       heading1Controller.clear();
                       heading2Controller.clear();

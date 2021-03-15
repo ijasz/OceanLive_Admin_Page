@@ -1,14 +1,10 @@
-import 'package:date_format/date_format.dart';
 import 'package:intl/intl.dart';
-import 'package:ocean_live/screens/admin/webinar/edit_alert/Content1_EditAlert.dart';
+import 'package:ocean_live/screens/admin/webinar/edit_alert/ContentEdit.dart';
 import 'package:ocean_live/screens/admin/webinar/screens/content1.dart';
 import 'package:ocean_live/screens/admin/webinar/screens/content2.dart';
 import 'package:ocean_live/screens/admin/webinar/screens/content3.dart';
-import 'package:ocean_live/screens/admin/webinar/upload%20alert/Content1_UploadAlert.dart';
-import 'package:path/path.dart';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_live/constants.dart';
 import 'package:ocean_live/models/routing.dart';
 import 'package:ocean_live/screens/admin/Details.dart';
+import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_html/html.dart';
 import 'package:video_player/video_player.dart';
@@ -34,11 +31,32 @@ class Webinar extends StatefulWidget {
 }
 
 class _WebinarState extends State<Webinar> {
+  TextEditingController _heading1Controller = TextEditingController();
+  TextEditingController heading2Controller = TextEditingController();
+  TextEditingController heading3Controller = TextEditingController();
+  TextEditingController trainerNameController = TextEditingController();
+  TextEditingController webinarDurationController = TextEditingController();
   bool _content1 = true;
   bool _content2 = false;
   bool _content3 = false;
   String dateTime;
   List listgetField = [];
+
+  getData() async {
+    var get = await _firestore.collection('free_webinar').get();
+
+    for (var o in get.docs) {
+      print('${o.id} //////48');
+    }
+    print('${get}  46///   free_webinar length ');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
 
   // getWebinarfields() async {
   //   var webinarCollection = await _firestore.collection('Webinar');
@@ -63,7 +81,7 @@ class _WebinarState extends State<Webinar> {
   //     }
   //   }
   // }
-
+  //
   // @override
   // void initState() {
   //   // TODO: implement initState
@@ -286,518 +304,6 @@ class _WebinarState extends State<Webinar> {
                         ? Content2()
                         : Content3(),
                 SizedBox(height: 70),
-                // Column(
-                //   children: [
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //               color: Colors.blue[50],
-                //             ),
-                //             height: 50,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Text(
-                //                     'Text',
-                //                     style:
-                //                         TextStyle(fontWeight: FontWeight.bold),
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Text',
-                //                     style:
-                //                         TextStyle(fontWeight: FontWeight.bold),
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Text',
-                //                     style:
-                //                         TextStyle(fontWeight: FontWeight.bold),
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text(
-                //                     'Text',
-                //                     style:
-                //                         TextStyle(fontWeight: FontWeight.bold),
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text(
-                //                     'Text',
-                //                     style:
-                //                         TextStyle(fontWeight: FontWeight.bold),
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //                 color: Colors.white60,
-                //                 border: Border(
-                //                   bottom: BorderSide(
-                //                       color: Colors.grey[300], width: 1),
-                //                 )),
-                //             height: 100,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   padding: EdgeInsets.all(20),
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Image.asset(
-                //                     'images/steve jobs.jpg',
-                //                     fit: BoxFit.cover,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Mohamed Ijass Ijass',
-                //                     maxLines: 2,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text('Course'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text('Payment'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text('Date and Time'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: RaisedButton(
-                //                     hoverColor: Colors.grey[100],
-                //                     hoverElevation: 0,
-                //                     color: Colors.white60,
-                //                     onPressed: () {},
-                //                     child: Icon(Icons.edit_outlined),
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: RaisedButton(
-                //                     shape: RoundedRectangleBorder(
-                //                       borderRadius: BorderRadius.circular(5),
-                //                     ),
-                //                     padding: EdgeInsets.zero,
-                //                     hoverColor: Colors.grey[200],
-                //                     hoverElevation: 0,
-                //                     color: Colors.white60,
-                //                     onPressed: () {},
-                //                     child: Icon(Icons.delete_outline_outlined),
-                //                   ),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //                 color: Colors.white60,
-                //                 border: Border(
-                //                   bottom: BorderSide(
-                //                       color: Colors.grey[300], width: 1),
-                //                 )),
-                //             height: 100,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   padding: EdgeInsets.all(20),
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Image.asset(
-                //                     'images/pichai.jpg',
-                //                     fit: BoxFit.cover,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Mohamed Ijass Ijass',
-                //                     maxLines: 2,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text('Course'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text('Payment'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text('Date and Time'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.edit_outlined),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.delete_outline_outlined),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //                 color: Colors.white60,
-                //                 border: Border(
-                //                   bottom: BorderSide(
-                //                       color: Colors.grey[300], width: 1),
-                //                 )),
-                //             height: 100,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   padding: EdgeInsets.all(10),
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Image.asset(
-                //                     'images/girl.jpg',
-                //                     fit: BoxFit.cover,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Mohamed Ijass Ijass',
-                //                     maxLines: 2,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text('Course'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text('Payment'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text('Date and Time'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.edit_outlined),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.delete_outline_outlined),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //                 color: Colors.white60,
-                //                 border: Border(
-                //                   bottom: BorderSide(
-                //                       color: Colors.grey[300], width: 1),
-                //                 )),
-                //             height: 100,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   padding: EdgeInsets.all(10),
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Image.asset('images/girl.jpg'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Mohamed Ijass Ijass',
-                //                     maxLines: 2,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text('Course'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text('Payment'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text('Date and Time'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.edit_outlined),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.delete_outline_outlined),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //                 color: Colors.white60,
-                //                 border: Border(
-                //                   bottom: BorderSide(
-                //                       color: Colors.grey[300], width: 1),
-                //                 )),
-                //             height: 100,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   padding: EdgeInsets.all(10),
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Image.asset('images/girl.jpg'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Mohamed Ijass Ijass',
-                //                     maxLines: 2,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text('Course'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text('Payment'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text('Date and Time'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.edit_outlined),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.delete_outline_outlined),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //                 color: Colors.white60,
-                //                 border: Border(
-                //                   bottom: BorderSide(
-                //                       color: Colors.grey[300], width: 1),
-                //                 )),
-                //             height: 100,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   padding: EdgeInsets.all(10),
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Image.asset('images/girl.jpg'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Mohamed Ijass Ijass',
-                //                     maxLines: 2,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text('Course'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text('Payment'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text('Date and Time'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.edit_outlined),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.delete_outline_outlined),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: Container(
-                //             decoration: BoxDecoration(
-                //                 color: Colors.white60,
-                //                 border: Border(
-                //                   bottom: BorderSide(
-                //                       color: Colors.grey[300], width: 1),
-                //                 )),
-                //             height: 100,
-                //             child: Row(
-                //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //               children: [
-                //                 Container(
-                //                   padding: EdgeInsets.all(10),
-                //                   alignment: Alignment.center,
-                //                   width: 120,
-                //                   child: Image.asset('images/girl.jpg'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text(
-                //                     'Mohamed Ijass Ijass',
-                //                     maxLines: 2,
-                //                   ),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 150,
-                //                   child: Text('Course'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 130,
-                //                   child: Text('Payment'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 180,
-                //                   child: Text('Date and Time'),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.edit_outlined),
-                //                 ),
-                //                 Container(
-                //                   alignment: Alignment.center,
-                //                   width: 50,
-                //                   child: Icon(Icons.delete_outline_outlined),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //   ],
-                // ),
                 Row(
                   children: [
                     Expanded(
@@ -864,7 +370,7 @@ class _WebinarState extends State<Webinar> {
                   ],
                 ),
                 StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('free_webinar').snapshots(),
+                  stream: _firestore.collection('Webinar').snapshots(),
                   // ignore: missing_return
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -879,6 +385,7 @@ class _WebinarState extends State<Webinar> {
                         final dbCourse = message.data()['course'];
                         final dbPayment = message.data()['payment'];
                         final dbTimeStamp = message.data()['timestamp'];
+
                         int yearFormat;
                         int monthFormat;
                         int dayFormat;
@@ -904,73 +411,33 @@ class _WebinarState extends State<Webinar> {
 
                         var Date =
                             '${dayFormat} - ${monthFormat} - ${yearFormat}  ${hourFormat} : ${minuteFormat}';
-                        // var sDate = DateTime(yearFormat, monthFormat, dayFormat,
-                        //     hourFormat, minuteFormat)
-                        //     .difference(DateTime.now())
-                        //     .inSeconds;
 
+                        print(
+                            '${dbTrainerName}           ////////////////923contoller');
                         final Db = Dbcontent(
                           trainerImage: dbTrainerImage,
                           trainerName: dbTrainerName,
                           courses: dbCourse,
                           payment: dbPayment,
                           timestamp: Date,
-                        );
-                        upcoming.add(Db);
-                      }
-                      return Column(
-                        children: upcoming,
-                      );
-                    }
-                  },
-                ),
-                StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('paid_webinar').snapshots(),
-                  // ignore: missing_return
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Text("Loading.....");
-                    } else {
-                      final messages = snapshot.data.docs;
-                      print('${messages}  ////259 Webinar documents');
-                      List<Dbcontent> upcoming = [];
-                      for (var message in messages) {
-                        final dbTrainerImage = message.data()['trainer image'];
-                        final dbTrainerName = message.data()['trainer name'];
-                        final dbCourse = message.data()['course'];
-                        final dbPayment = message.data()['payment'];
-                        final dbTimeStamp = message.data()['timestamp'];
-                        int yearFormat;
-                        int monthFormat;
-                        int dayFormat;
-                        int hourFormat;
-                        int minuteFormat;
-
-                        print('=============');
-                        var year = DateFormat('y');
-                        var month = DateFormat('MM');
-                        var day = DateFormat('d');
-                        var hour = DateFormat('hh');
-                        var minute = DateFormat('mm');
-
-                        yearFormat =
-                            int.parse(year.format(dbTimeStamp.toDate()));
-                        monthFormat =
-                            int.parse(month.format(dbTimeStamp.toDate()));
-                        dayFormat = int.parse(day.format(dbTimeStamp.toDate()));
-                        hourFormat =
-                            int.parse(hour.format(dbTimeStamp.toDate()));
-                        minuteFormat =
-                            int.parse(minute.format(dbTimeStamp.toDate()));
-
-                        var Date =
-                            '${dayFormat} - ${monthFormat} - ${yearFormat}  ${hourFormat} : ${minuteFormat}';
-                        final Db = Dbcontent(
-                          trainerImage: dbTrainerImage,
-                          trainerName: dbTrainerName,
-                          courses: dbCourse,
-                          payment: dbPayment,
-                          timestamp: Date,
+                          onpressEdit: () async {
+                            var webinarData = await _firestore
+                                .collection('Webinar')
+                                .doc(message.data()['course'])
+                                .get();
+                            print(webinarData.data());
+                            Provider.of<Routing>(context, listen: false)
+                                .updateRouting(
+                                    widget: ContentEdit(
+                                        webinarData: webinarData.data()));
+                            print('${Date}   DAte/////////////////////////429');
+                          },
+                          onpress: () {
+                            _firestore
+                                .collection('Webinar')
+                                .doc(message.data()['course'])
+                                .delete();
+                          },
                         );
                         upcoming.add(Db);
                       }
@@ -995,21 +462,23 @@ class Dbcontent extends StatefulWidget {
   String courses;
   String payment;
   var timestamp;
+  Function onpress;
+  Function onpressEdit;
 
   Dbcontent(
       {this.trainerImage,
       this.trainerName,
       this.courses,
       this.payment,
-      this.timestamp});
+      this.timestamp,
+      this.onpress,
+      this.onpressEdit});
 
   @override
   _DbcontentState createState() => _DbcontentState();
 }
 
 class _DbcontentState extends State<Dbcontent> {
-  delete() {}
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -1066,10 +535,7 @@ class _DbcontentState extends State<Dbcontent> {
                         hoverColor: Colors.grey[100],
                         hoverElevation: 0,
                         color: Colors.white60,
-                        onPressed: () {
-                          displayDialog(
-                              context: context, name: Content1EditAlert());
-                        },
+                        onPressed: widget.onpressEdit,
                         child: Icon(Icons.edit_outlined),
                       ),
                     ),
@@ -1084,59 +550,7 @@ class _DbcontentState extends State<Dbcontent> {
                         hoverColor: Colors.grey[200],
                         hoverElevation: 0,
                         color: Colors.white60,
-                        onPressed: () {
-                          StreamBuilder<QuerySnapshot>(
-                              stream: _firestore
-                                  .collection('free_webinar')
-                                  .where(widget.courses)
-                                  .snapshots(),
-                              // ignore: missing_return
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  return Text("Loading.....");
-                                } else {
-                                  final messages = snapshot.data.docs;
-                                  print(
-                                      '${messages}  ////1100 Webinar documents');
-                                  List<Dbcontent> upcoming = [];
-                                  for (var message in messages) {
-                                    final dbTrainerImage =
-                                        message.data()['trainer image'];
-                                    final dbTrainerName =
-                                        message.data()['trainer name'];
-                                    final dbCourse = message.data()['course'];
-                                    final dbPayment = message.data()['payment'];
-                                    final dbTimeStamp =
-                                        message.data()['timestamp'];
-                                  }
-                                }
-                              });
-                          // StreamBuilder<QuerySnapshot>(
-                          //     stream: _firestore
-                          //         .collection('paid_webinar')
-                          //         .snapshots(),
-                          //     // ignore: missing_return
-                          //     builder: (context, snapshot) {
-                          //       if (!snapshot.hasData) {
-                          //         return Text("Loading.....");
-                          //       } else {
-                          //         final messages = snapshot.data.docs;
-                          //         print(
-                          //             '${messages}  ////259 Webinar documents');
-                          //         List<Dbcontent> upcoming = [];
-                          //         for (var message in messages) {
-                          //           final dbTrainerImage =
-                          //               message.data()['trainer image'];
-                          //           final dbTrainerName =
-                          //               message.data()['trainer name'];
-                          //           final dbCourse = message.data()['course'];
-                          //           final dbPayment = message.data()['payment'];
-                          //           final dbTimeStamp =
-                          //               message.data()['timestamp'];
-                          //         }
-                          //       }
-                          //     });
-                        },
+                        onPressed: widget.onpress,
                         child: Icon(Icons.delete_outline_outlined),
                       ),
                     ),
@@ -1150,199 +564,6 @@ class _DbcontentState extends State<Dbcontent> {
     );
   }
 }
-
-// /// < StremBuilder Content 1 > ///
-//
-// class DbContent1 extends StatefulWidget {
-//   String trainerName;
-//   String trainerImage;
-//   String superTitle;
-//   String mainTitle;
-//   String mainSubtitle;
-//
-//   DbContent1(
-//       {this.trainerImage,
-//       this.superTitle,
-//       this.mainTitle,
-//       this.mainSubtitle,
-//       this.trainerName});
-//   @override
-//   _DbContent1State createState() => _DbContent1State();
-// }
-//
-// class _DbContent1State extends State<DbContent1> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Container(
-//           padding: EdgeInsets.all(50),
-//           color: Colors.grey[100],
-//           child: Column(
-//             children: [
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Expanded(
-//                     child: Container(
-//                       child: Column(
-//                         mainAxisAlignment: MainAxisAlignment.start,
-//                         children: [
-//                           Text(
-//                             'Heading 1',
-//                             style: TextStyle(
-//                                 fontSize: 20, fontWeight: FontWeight.w600),
-//                           ),
-//                           SizedBox(height: 20),
-//                           Container(
-//                             child: Padding(
-//                               padding: EdgeInsets.all(25),
-//                               child: Text(
-//                                 "${widget.superTitle}",
-//                                 style: TextStyle(fontSize: 16),
-//                                 softWrap: true,
-//                                 maxLines: 6,
-//                                 overflow: TextOverflow.ellipsis,
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(height: 20),
-//                           Container(
-//                             child: Text(
-//                               'Heading 2',
-//                               style: TextStyle(
-//                                   fontSize: 20, fontWeight: FontWeight.w600),
-//                             ),
-//                           ),
-//                           SizedBox(height: 20),
-//                           Container(
-//                             child: Padding(
-//                               padding: EdgeInsets.all(25),
-//                               child: Text(
-//                                 "${widget.mainTitle}",
-//                                 style: TextStyle(fontSize: 16),
-//                                 softWrap: true,
-//                                 maxLines: 6,
-//                                 overflow: TextOverflow.ellipsis,
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(height: 20),
-//                           Container(
-//                             child: Text(
-//                               'Heading 3',
-//                               style: TextStyle(
-//                                   fontSize: 20, fontWeight: FontWeight.w600),
-//                             ),
-//                           ),
-//                           SizedBox(height: 20),
-//                           Container(
-//                             child: Padding(
-//                               padding: EdgeInsets.all(25),
-//                               child: Text(
-//                                 "${widget.mainSubtitle}",
-//                                 style: TextStyle(fontSize: 16),
-//                                 softWrap: true,
-//                                 maxLines: 6,
-//                                 overflow: TextOverflow.ellipsis,
-//                               ),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                   Expanded(
-//                     child: Container(
-//                       padding: EdgeInsets.symmetric(horizontal: 20),
-//                       child: Column(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         children: [
-//                           Container(
-//                             height: 350,
-//                             width: 500,
-//                             child: Image.network(
-//                               "${widget.trainerImage}",
-//                               fit: BoxFit.cover,
-//                             ),
-//                           ),
-//                           Container(
-//                             alignment: Alignment.bottomCenter,
-//                             width: 500,
-//                             child: Text(
-//                               '${widget.trainerName}',
-//                               style: TextStyle(
-//                                   fontSize: 20, fontWeight: FontWeight.w500),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-//
-// /// < content 3 Strembuilder > ///
-//
-// class Dbcontent3 extends StatefulWidget {
-//   String mentorImage;
-//   String mentorDescription;
-//
-//   Dbcontent3({this.mentorImage, this.mentorDescription});
-//
-//   @override
-//   _Dbcontent3State createState() => _Dbcontent3State();
-// }
-//
-// class _Dbcontent3State extends State<Dbcontent3> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Container(
-//           padding: EdgeInsets.all(50),
-//           color: Colors.grey[100],
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Expanded(
-//                 child: Container(
-//                   width: 800,
-//                   child: Padding(
-//                     padding: EdgeInsets.all(20),
-//                     child: Text(
-//                       '${widget.mentorDescription}',
-//                       style: TextStyle(height: 2, letterSpacing: 0.2),
-//                       maxLines: 20,
-//                       overflow: TextOverflow.ellipsis,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               Expanded(
-//                 child: Container(
-//                   padding: EdgeInsets.symmetric(horizontal: 20),
-//                   height: 300,
-//                   width: 300,
-//                   child: Image.network(
-//                     '${widget.mentorImage}',
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
 
 ///< Alert Dialog >///
 
@@ -1370,68 +591,9 @@ Future<void> displayDialog({name, context}) async {
   );
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-
-class MentorVideos extends StatefulWidget {
-  static String filename;
-  static var getLink;
-  String imageLink;
-  @override
-  _MentorVideosState createState() => _MentorVideosState();
-}
-
-class _MentorVideosState extends State<MentorVideos> {
-  Uint8List uploadfile;
-  bool isComplete = false, isOnline = false, isOffline = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 6,
-      child: SingleChildScrollView(
-        child: Container(
-          padding: pagePadding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 30),
-              StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('webinarvideo').snapshots(),
-                // ignore: missing_return
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Text("Loading.....");
-                  } else {
-                    final messages = snapshot.data.docs;
-                    List<UpcomingCourseImage> upcoming = [];
-                    for (var message in messages) {
-                      final messageImage = message.data()['webinarvideo'];
-                      final upcomingImage = UpcomingCourseImage(
-                        imagePath: messageImage,
-                      );
-                      upcoming.add(upcomingImage);
-                    }
-                    return Wrap(
-                      //alignment: WrapAlignment.start,
-                      spacing: 20.0,
-                      runSpacing: 20.0,
-                      children: upcoming,
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+///////////////////////////////////////////////////////////////////////////////////
 
 class UpcomingCourseImage extends StatefulWidget {
-  UpcomingCourseImage({this.imagePath});
-  final String imagePath;
-
   @override
   _UpcomingCourseImageState createState() => _UpcomingCourseImageState();
 }
@@ -1443,9 +605,9 @@ class _UpcomingCourseImageState extends State<UpcomingCourseImage> {
   @override
   void initState() {
     _controller = VideoPlayerController.network(
-      '${widget.imagePath}',
+      '${ContentEdit.video}',
     );
-    print('${widget.imagePath}');
+    print('${ContentEdit.video}');
 
     // Initielize the controller and store the Future for later use.
     _initializeVideoPlayerFuture = _controller.initialize();
@@ -1463,95 +625,16 @@ class _UpcomingCourseImageState extends State<UpcomingCourseImage> {
     super.dispose();
   }
 
-  String docid;
   bool isVisible = false;
-  String horizondal;
-
-  void messageStream() async {
-    await for (var snapshot in _firestore
-        .collection('Video')
-        .where("Video", isEqualTo: widget.imagePath)
-        .snapshots(includeMetadataChanges: true)) {
-      for (var message in snapshot.docs) {
-        //print(message.documentID);
-        horizondal = message.documentID;
-        print(horizondal);
-      }
-      docid = horizondal;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    Padding deleteDetails({newLink, document}) {
-      return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Icon(
-              FontAwesomeIcons.trashAlt,
-              size: 90,
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-              "Are you Sure want to delete this ?",
-              style: TextStyle(fontSize: 30, color: Color(0xFF464646)),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                button(
-                    text: "No",
-                    onPress: () {
-                      Navigator.pop(this.context);
-                    }),
-                SizedBox(
-                  width: 10,
-                ),
-                outlinebutton(
-                    text: "Yes",
-                    onPress: () {
-                      messageStream();
-                      print("${docid}hhhhhhh");
-                      print("${horizondal}jayaa");
-                      setState(() async {
-                        var removeImage =
-                            FirebaseStorage.instance.ref().child(newLink);
-
-                        try {
-                          await removeImage.delete();
-                        } catch (e) {
-                          print(e);
-                        }
-                        Navigator.pop(this.context);
-
-                        setState(() {
-                          print("Video Deleted");
-                          ScaffoldMessenger.of(this.context).showSnackBar(
-                              SnackBar(content: Text('Video Deleted')));
-                        });
-
-                        _firestore.collection("Video").doc(horizondal).delete();
-                      });
-                    })
-              ],
-            ),
-          ],
-        ),
-      );
-    }
-
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 400,
-          height: 220,
+          width: 600,
+          height: 400,
           child: InkWell(
             onTap: () {},
             onHover: (isHovering) {
@@ -1570,8 +653,6 @@ class _UpcomingCourseImageState extends State<UpcomingCourseImage> {
             child: Stack(
               children: [
                 Container(
-                  width: 400,
-                  height: 400,
                   child: FutureBuilder(
                     future: _initializeVideoPlayerFuture,
                     builder: (context, snapshot) {
@@ -1592,63 +673,43 @@ class _UpcomingCourseImageState extends State<UpcomingCourseImage> {
                       } else {
                         // If the VideoPlayerController is still initializing, show a
                         // loading spinner.
-                        return Center(child: CircularProgressIndicator());
+                        return Center(
+                            child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ));
                       }
                     },
                   ),
                 ),
                 Positioned(
-                  left: 120,
-                  bottom: 50,
-                  child: ButtonTheme(
-                      height: 10.0,
-                      minWidth: 20.0,
-                      child: RaisedButton(
-                        color: Colors.transparent,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          // Wrap the play or pause in a call to `setState`. This ensures the
-                          // correct icon is shown.
-                          setState(() {
-                            // If the video is playing, pause it.
-                            if (_controller.value.isPlaying) {
-                              _controller.pause();
-                            } else {
-                              // If the video is paused, play it.
-                              _controller.play();
-                            }
-                          });
-                        },
-                        child: Icon(
-                          _controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                          size: 120.0,
-                        ),
-                      )),
-                ),
-                Visibility(
-                  visible: isVisible,
-                  child: Positioned(
-                    top: 13,
-                    right: 15,
-                    child: CircleAvatar(
-                      backgroundColor: Color(0xFF504E4E),
-                      radius: 15,
-                      child: IconButton(
-                          padding: EdgeInsets.zero,
-                          icon: Icon(FontAwesomeIcons.times),
-                          color: Colors.white,
-                          onPressed: () {
-                            displayDialog(
-                                name: deleteDetails(
-                                    newLink: widget.imagePath,
-                                    document: horizondal),
-                                context: context);
-                          }),
+                  top: 120,
+                  left: 250,
+                  child: Center(
+                    child: RaisedButton(
+                      color: Colors.transparent,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        // Wrap the play or pause in a call to `setState`. This ensures the
+                        // correct icon is shown.
+                        setState(() {
+                          // If the video is playing, pause it.
+                          if (_controller.value.isPlaying) {
+                            _controller.pause();
+                          } else {
+                            // If the video is paused, play it.
+                            _controller.play();
+                          }
+                        });
+                      },
+                      child: Icon(
+                        _controller.value.isPlaying
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                        size: 80.0,
+                      ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

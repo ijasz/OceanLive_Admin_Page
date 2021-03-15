@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ocean_live/screens/admin/webinar/edit_alert/ContentEdit.dart';
 import 'package:ocean_live/screens/admin/webinar/screens/content1.dart';
 import 'package:ocean_live/screens/admin/webinar/upload%20alert/Content1_UploadAlert.dart';
 import 'package:ocean_live/screens/admin/webinar/upload%20alert/Content2_UploadAlert.dart';
@@ -89,48 +90,43 @@ class _Content2State extends State<Content2> {
                       if (result != null) {
                         uploadfile = result.files.single.bytes;
                         setState(() {
-                          MentorVideos.filename =
+                          ContentEdit.filename =
                               basename(result.files.single.name);
                         });
-                        print(MentorVideos.filename);
+                        print(ContentEdit.filename);
                       } else {
                         print('pick image');
                       }
                       ///////
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Please wait few seconds')));
                       Future uploadPic(BuildContext context) async {
                         Reference firebaseStorageRef = FirebaseStorage.instance
                             .ref()
                             .child("Webinar")
-                            .child(MentorVideos.filename);
+                            .child(ContentEdit.filename);
                         UploadTask uploadTask =
                             firebaseStorageRef.putData(uploadfile);
                         TaskSnapshot taskSnapshot =
                             await uploadTask.whenComplete(() {
                           setState(() {
                             print("Video uploaded");
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Video Uploaded')));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('Please wait for few seconds')));
                             uploadTask.snapshot.ref
                                 .getDownloadURL()
                                 .then((value) {
                               setState(() {
-                                MentorVideos.getLink = value;
+                                ContentEdit.getLink = value;
                               });
 
-                              print(MentorVideos.getLink);
+                              print(ContentEdit.getLink);
                               _firestore
-                                  .collection(
-                                      Content1.paymentController == null ||
-                                              Content1.paymentController.text
-                                                  .isEmpty
-                                          ? 'free_webinar'
-                                          : 'paid_webinar')
+                                  .collection('Webinar')
                                   .doc(
                                       Content1UploadAlert.courseController.text)
                                   .update(
-                                      {"webinar video": MentorVideos.getLink});
+                                      {"webinar video": ContentEdit.getLink});
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Video Uploaded')));
                             });
                           });
                         });
@@ -148,161 +144,6 @@ class _Content2State extends State<Content2> {
             ],
           ),
           SizedBox(height: 50),
-          // Container(
-          //   color: Colors.grey[100],
-          //   height: 400,
-          //   width: double.infinity,
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       Center(child: MentorVideos()),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(height: 50),
-          // Container(
-          //   color: Colors.grey[100],
-          //   width: double.infinity,
-          //   child: Padding(
-          //     padding: EdgeInsets.all(60),
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Container(
-          //           child: RichText(
-          //             text: TextSpan(
-          //               text: '1.',
-          //               style: TextStyle(
-          //                   color: Colors.black,
-          //                   fontSize: 17,
-          //                   fontWeight: FontWeight.w600),
-          //               children: [
-          //                 TextSpan(
-          //                   text:
-          //                       ' How abundance blocks are holding you back from wealth.',
-          //                   style: TextStyle(
-          //                       color: Colors.black87, letterSpacing: 0.3),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         Container(
-          //           child: Text(
-          //             ' Discover eye-opening insights into the world of abundance blocks and how they prevent you every day from manifesting the wealth you deserve.',
-          //             maxLines: 6,
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //         ),
-          //         SizedBox(height: 30),
-          //         Container(
-          //           child: RichText(
-          //             text: TextSpan(
-          //               text: '2.',
-          //               style: TextStyle(
-          //                   color: Colors.black,
-          //                   fontSize: 17,
-          //                   fontWeight: FontWeight.w600),
-          //               children: [
-          //                 TextSpan(
-          //                   text:
-          //                       ' How abundance blocks are holding you back from wealth.',
-          //                   style: TextStyle(color: Colors.black87),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         Container(
-          //           child: Text(
-          //             ' Discover eye-opening insights into the world of abundance blocks and how they prevent you every day from manifesting the wealth you deserve.',
-          //             maxLines: 6,
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //         ),
-          //         SizedBox(height: 30),
-          //         Container(
-          //           child: RichText(
-          //             text: TextSpan(
-          //               text: '3.',
-          //               style: TextStyle(
-          //                   color: Colors.black,
-          //                   fontSize: 17,
-          //                   fontWeight: FontWeight.w600),
-          //               children: [
-          //                 TextSpan(
-          //                   text:
-          //                       ' How abundance blocks are holding you back from wealth.',
-          //                   style: TextStyle(color: Colors.black87),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         Container(
-          //           child: Text(
-          //             ' Discover eye-opening insights into the world of abundance blocks and how they prevent you every day from manifesting the wealth you deserve.',
-          //             maxLines: 6,
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //         ),
-          //         SizedBox(height: 30),
-          //         Container(
-          //           child: RichText(
-          //             text: TextSpan(
-          //               text: '4.',
-          //               style: TextStyle(
-          //                   color: Colors.black,
-          //                   fontSize: 17,
-          //                   fontWeight: FontWeight.w600),
-          //               children: [
-          //                 TextSpan(
-          //                   text:
-          //                       ' How abundance blocks are holding you back from wealth.',
-          //                   style: TextStyle(color: Colors.black87),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         Container(
-          //           child: Text(
-          //             ' Discover eye-opening insights into the world of abundance blocks and how they prevent you every day from manifesting the wealth you deserve.',
-          //             maxLines: 6,
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //         ),
-          //         SizedBox(height: 30),
-          //         Container(
-          //           child: RichText(
-          //             text: TextSpan(
-          //               text: '5.',
-          //               style: TextStyle(
-          //                   color: Colors.black,
-          //                   fontSize: 17,
-          //                   fontWeight: FontWeight.w600),
-          //               children: [
-          //                 TextSpan(
-          //                   text:
-          //                       ' How abundance blocks are holding you back from wealth.',
-          //                   style: TextStyle(color: Colors.black87),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         ),
-          //         Container(
-          //           child: Text(
-          //             ' Discover eye-opening insights into the world of abundance blocks and how they prevent you every day from manifesting the wealth you deserve.',
-          //             maxLines: 6,
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(height: 100),
         ],
       ),
     );

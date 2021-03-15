@@ -19,15 +19,17 @@ class Content3UploadAlert extends StatefulWidget {
 
 class _Content3UploadAlertState extends State<Content3UploadAlert> {
   String aboutMentor;
+  String designation;
   var mentorImage;
   String filename;
   Uint8List uploadfile;
   TextEditingController aboutMentorController = TextEditingController();
+  TextEditingController designationController = TextEditingController();
 
   Widget _buildAboutMentor() {
     return TextFormField(
       maxLines: null,
-      minLines: 10,
+      minLines: 2,
       validator: (value) {
         if (value.isEmpty) {
           print(value);
@@ -58,10 +60,44 @@ class _Content3UploadAlertState extends State<Content3UploadAlert> {
     );
   }
 
+  Widget _designation() {
+    return TextFormField(
+      maxLines: null,
+      minLines: 2,
+      validator: (value) {
+        if (value.isEmpty) {
+          print(value);
+          return "query is required";
+        } else if (value.length < 2) {
+          return 'character should be more than 2';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(top: 40, left: 5),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderSide: BorderSide(width: 1, color: Colors.black54)),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderSide: BorderSide(width: 1, color: Colors.blueAccent),
+        ),
+        labelText: 'Designation',
+        labelStyle: TextStyle(
+          color: Colors.grey,
+          fontSize: 15,
+        ),
+      ),
+      onChanged: (value) {
+        designation = value;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: 520,
       width: 450,
       color: Colors.white,
       child: Stack(
@@ -93,13 +129,13 @@ class _Content3UploadAlertState extends State<Content3UploadAlert> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(top: 50, left: 20),
+                padding: EdgeInsets.only(top: 40, left: 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      height: 40,
-                      width: 120,
+                      height: 38,
+                      width: 100,
                       child: RaisedButton(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -122,7 +158,7 @@ class _Content3UploadAlertState extends State<Content3UploadAlert> {
                               child: Text(
                                 'Upload Image',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 10,
                                   color: Color(0xff0090E9),
                                 ),
                               ),
@@ -181,19 +217,22 @@ class _Content3UploadAlertState extends State<Content3UploadAlert> {
               ),
               SizedBox(height: 30),
               Container(
-                height: 150,
+                height: 80,
                 padding: EdgeInsets.symmetric(horizontal: 50),
                 child: _buildAboutMentor(),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
+              Container(
+                height: 80,
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                child: _designation(),
+              ),
+              SizedBox(height: 25),
               RaisedButton(
                 color: Colors.blue,
                 onPressed: () {
                   _firestore
-                      .collection(Content1.paymentController == null ||
-                              Content1.paymentController.text.isEmpty
-                          ? 'free_webinar'
-                          : 'paid_webinar')
+                      .collection("Webinar")
                       .doc(Content1UploadAlert.courseController.text)
                       .update({
                     'mentor image': mentorImage,
@@ -202,6 +241,7 @@ class _Content3UploadAlertState extends State<Content3UploadAlert> {
                     'payment': Content1.paymentController.text.isEmpty
                         ? 'free'
                         : Content1.paymentController.text,
+                    'designation': designation
                   });
                   aboutMentorController.clear();
                   Content1.paymentController.clear();

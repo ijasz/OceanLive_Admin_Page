@@ -146,10 +146,7 @@ class _Content2UploadAlertState extends State<Content2UploadAlert> {
                 color: Colors.blue,
                 onPressed: () {
                   _firestore
-                      .collection(Content1.paymentController == null ||
-                              Content1.paymentController.text.isEmpty
-                          ? 'free_webinar'
-                          : 'paid_webinar')
+                      .collection('Webinar')
                       .doc(Content1UploadAlert.courseController.text)
                       .update({
                     'topic title': FieldValue.arrayUnion([title]),

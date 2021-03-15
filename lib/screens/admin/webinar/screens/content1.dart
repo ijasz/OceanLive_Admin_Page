@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ocean_live/screens/admin/webinar/edit_alert/Content1_EditAlert.dart';
+import 'package:ocean_live/screens/admin/webinar/edit_alert/ContentEdit.dart';
 import 'package:ocean_live/screens/admin/webinar/upload%20alert/Content1_UploadAlert.dart';
 import '../webinar.dart';
 
@@ -109,40 +109,6 @@ class _Content1State extends State<Content1> {
                 ],
               ),
             ),
-            SizedBox(width: 20),
-            // RaisedButton(
-            //   color: Colors.white,
-            //   shape: RoundedRectangleBorder(
-            //     side: BorderSide(
-            //       color: Color(0xff0090E9),
-            //       width: 3,
-            //     ),
-            //     borderRadius: BorderRadius.circular(10),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       Icon(
-            //         Icons.edit_outlined,
-            //         color: Colors.blue,
-            //       ),
-            //       SizedBox(width: 5),
-            //       Padding(
-            //         padding: EdgeInsets.all(10),
-            //         child: Text(
-            //           'Edit',
-            //           style: TextStyle(
-            //             fontSize: 17,
-            //             color: Color(0xff0090E9),
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            //   textColor: Colors.white,
-            //   onPressed: () {
-            //     displayDialog(context: context, name: Content1EditAlert());
-            //   },
-            // ),
             SizedBox(width: 20),
             RaisedButton(
               color: Colors.white,

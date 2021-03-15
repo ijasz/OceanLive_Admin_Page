@@ -39,7 +39,6 @@ class _CourseState extends State<Course> {
       for (var message in snapshot.docs) {
         print(message.documentID);
         Course.studentid.add(message.documentID);
-        print("${Course.studentid}listlistlistttttttttttttttt");
       }
     }
   }
