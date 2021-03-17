@@ -19,28 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4c1a96c-3111-4ddd-b906-518ab3d27fee" name="Default Changelist" comment="changed view course">
-      <change afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/edit_alert/ContentEdit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/AutofillStrikeDatabase/000003.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/AutofillStrikeDatabase/CURRENT" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/AutofillStrikeDatabase/LOCK" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/AutofillStrikeDatabase/LOG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+    <list default="true" id="a4c1a96c-3111-4ddd-b906-518ab3d27fee" name="Default Changelist" comment="changed webinar">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/course.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/course.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/edit_alert/Content1_EditAlert.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/edit_alert/Content2_EditAlert.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/edit_alert/Content3_EditAlert.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content1.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content2.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/screens/content3.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/edit_alert/ContentEdit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/edit_alert/ContentEdit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/upload alert/Content1_UploadAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/upload alert/Content1_UploadAlert.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/upload alert/Content2_UploadAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/upload alert/Content2_UploadAlert.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/upload alert/Content3_UploadAlert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/upload alert/Content3_UploadAlert.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/admin/webinar/webinar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/webinar/webinar.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615204733605</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="changed webinar">
+      <created>1615783626893</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1615783626893</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,9 +115,9 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed webinar" />
     <MESSAGE value="changed view course" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed view course" />
+    <MESSAGE value="changed webinar" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed webinar" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1615355116053">
@@ -141,22 +132,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="801" y="418" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615202543984" />
-    <state width="1877" height="178" key="GridCell.Tab.0.bottom" timestamp="1615646060839">
+    <state width="1877" height="168" key="GridCell.Tab.0.bottom" timestamp="1615908836359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="178" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615646060839" />
-    <state width="1877" height="178" key="GridCell.Tab.0.center" timestamp="1615646060839">
+    <state width="1877" height="168" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615908836359" />
+    <state width="1877" height="168" key="GridCell.Tab.0.center" timestamp="1615908836359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="178" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615646060839" />
-    <state width="1877" height="178" key="GridCell.Tab.0.left" timestamp="1615646060839">
+    <state width="1877" height="168" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615908836359" />
+    <state width="1877" height="168" key="GridCell.Tab.0.left" timestamp="1615908836359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="178" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615646060839" />
-    <state width="1877" height="178" key="GridCell.Tab.0.right" timestamp="1615646060839">
+    <state width="1877" height="168" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615908836359" />
+    <state width="1877" height="168" key="GridCell.Tab.0.right" timestamp="1615908836359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="178" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615646060839" />
+    <state width="1877" height="168" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615908836359" />
+    <state x="630" y="240" key="RollbackChangesDialog" timestamp="1615816080754">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="630" y="240" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615816080754" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1615202008514">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -169,22 +164,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615441689184" />
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1615202382294">
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1615808496232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1615202382294" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1615808496232" />
     <state x="510" y="256" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1615555248433">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="510" y="256" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1615555248433" />
-    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1615472127613">
+    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1615816418772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615472127613" />
+    <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615816418772" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1615386163878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615386163878" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1615791108542">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615791108542" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

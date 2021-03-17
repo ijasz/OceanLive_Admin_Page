@@ -18,6 +18,7 @@ class ContentEdit extends StatefulWidget {
   static List topicTitle;
   static List topicSubtitle;
   static var getLink;
+  static var differenceTime;
   String imageLink;
   ContentEdit({this.webinarData});
   Map webinarData;
@@ -32,6 +33,7 @@ Map topics = {};
 TextEditingController _titleController =
     TextEditingController(text: 'tttttttt');
 TextEditingController _subtitleController = TextEditingController();
+
 alert(context, {String topic, String subtitle, courseName}) {
   _titleController.text = topic;
   _subtitleController.text = subtitle;
@@ -56,10 +58,14 @@ alert(context, {String topic, String subtitle, courseName}) {
                     style: TextStyle(fontSize: 30),
                   ),
                   onPressed: () {
-                    uploadCourse = courseName;
-                    topics.addAll(
-                        {_titleController.text: _subtitleController.text});
-                    print(topics);
+                    print('${courseName}    edit course');
+                    // _firestore.collection('Webinar').doc(courseName).update({
+                    //   'topics subtitle' : FieldValue.arrayUnion([topic]),
+                    //   'topic title' : FieldValue.arrayUnion([subtitle]),
+                    // });
+                    // topics
+                    //     .addAll({_titleController.text: _titleController.text});
+                    // print(topics);
                   },
                 )
               ],
@@ -111,7 +117,6 @@ class _ContentEditState extends State<ContentEdit> {
   String filename;
   List topicTitle;
   List topicSubtitle;
-
   Uint8List uploadfile2;
   Uint8List uploadfile;
   bool isComplete = false, isOnline = false, isOffline = false;
@@ -415,6 +420,7 @@ class _ContentEditState extends State<ContentEdit> {
 
   Widget _studentEnrolledField() {
     return TextFormField(
+      keyboardType: TextInputType.number,
       validator: (value) {
         if (value.isEmpty) {
           print(value);
@@ -467,8 +473,8 @@ class _ContentEditState extends State<ContentEdit> {
           borderSide: BorderSide(width: 1, color: Colors.blueAccent),
         ),
         labelText: 'Date & Time',
-        suffixIcon: GestureDetector(
-            onTap: () {}, child: Icon(Icons.date_range_outlined)),
+        suffixIcon: TextButton(
+            onPressed: () {}, child: Icon(Icons.date_range_outlined)),
         labelStyle: TextStyle(
           color: Colors.grey,
           fontSize: 15,
@@ -525,21 +531,50 @@ class _ContentEditState extends State<ContentEdit> {
     ContentEdit.topicTitle = widget.webinarData['topic title'];
     ContentEdit.topicSubtitle = widget.webinarData['topic subtitle'];
     mentorImage = widget.webinarData['trainer image'];
+    studentEnrolledController.text = widget.webinarData['student enrolled'];
+    // studentEnrolled = widget.webinarData['student enrolled'];
     minutes = widget.webinarData['trainer image'];
     mentorImage2 = widget.webinarData['mentor image'];
     ContentEdit.video = widget.webinarData['webinar video'];
     trainerNameController.text = widget.webinarData['trainer name'];
+    Timestamp timestamp = widget.webinarData['timestamp'];
+    print(timestamp.toDate());
+    print('*************************');
+    var year = DateFormat('y');
+    var month = DateFormat('MM');
+    var date = DateFormat('d');
+    var hour = DateFormat('hh');
+    var min = DateFormat('m');
+    var amPm = DateFormat('a');
+    int yearFormat = int.parse(year.format(timestamp.toDate()));
+    int monthFormat = int.parse(month.format(timestamp.toDate()));
+    int dateFormat = int.parse(date.format(timestamp.toDate()));
+    int hourFormat = int.parse(hour.format(timestamp.toDate()));
+    int minFormat = int.parse(min.format(timestamp.toDate()));
+    var timeFormat = amPm.format(timestamp.toDate());
+
+    ContentEdit.differenceTime = DateTime(
+      dateFormat,
+      monthFormat,
+      yearFormat,
+      hourFormat,
+      minFormat,
+    );
+
     designationController.text = widget.webinarData['designation'];
     aboutMentorController.text = widget.webinarData['about mentor'];
+    dateTimeController.text = '${ContentEdit.differenceTime} $timeFormat';
+    print("${ContentEdit.differenceTime} ///////////////date and time format");
     paymentController.text = widget.webinarData['payment'];
     webinarDurationController.text = widget.webinarData['webinar duration'];
+    print(
+        '${webinarDurationController.text}   //////////////////////////webinar duration');
     courseController.text = widget.webinarData['course'];
     course = widget.webinarData['course'];
     thisId = widget.webinarData['course'];
     superTitleController.text = widget.webinarData['super title'];
     mainTitleController.text = widget.webinarData['main title'];
     mainSubtitleController.text = widget.webinarData['main subtitle'];
-    print('');
     // studentEnrolledController.text = widget.webinarData['student enrolled'];
     return Expanded(
       child: SingleChildScrollView(
@@ -583,11 +618,16 @@ class _ContentEditState extends State<ContentEdit> {
                       padding: EdgeInsets.only(right: 20),
                       onPressed: () {
                         _firestore.collection('Webinar').doc(course).update({
-                          'trainer name': trainerName,
-                          'designation': designation,
-                          'about mentor': aboutMentor,
-                          'minutes': minutes,
-                          'payment': payment
+                          'trainer name': trainerNameController.text,
+                          'designation': designationController.text,
+                          'about mentor': aboutMentorController.text,
+                          'webinar duration': webinarDurationController.text,
+                          'payment': paymentController.text,
+                          'course': courseController.text,
+                          'super topic': superTitleController.text,
+                          'main title': mainTitleController.text,
+                          'main subtitle': mainSubtitleController.text,
+                          'student enrolled': studentEnrolledController.text,
                         });
                       },
                       child: Row(
@@ -757,7 +797,76 @@ class _ContentEditState extends State<ContentEdit> {
                                                   SizedBox(height: 30),
                                                   _payment(),
                                                   SizedBox(height: 30),
-                                                  _timestampField(),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      RaisedButton(
+                                                          color: Colors.white,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            side: BorderSide(
+                                                              color: Color(
+                                                                  0xff0090E9),
+                                                              width: 3,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .date_range_outlined,
+                                                                color:
+                                                                    Colors.blue,
+                                                              ),
+                                                              SizedBox(
+                                                                  width: 5),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            10),
+                                                                child: Text(
+                                                                  'Date and Time',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        17,
+                                                                    color: Color(
+                                                                        0xff0090E9),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          textColor:
+                                                              Colors.white,
+                                                          onPressed: () async {
+                                                            // DateTimePicker();
+                                                            _selectDate(
+                                                                context);
+                                                          }),
+                                                      RaisedButton(
+                                                          child: Text('Send'),
+                                                          onPressed: () {
+                                                            _firestore
+                                                                .collection(
+                                                                    "Webinar")
+                                                                .doc(course)
+                                                                .update({
+                                                              "timestamp": time
+                                                            });
+                                                          })
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -1095,12 +1204,10 @@ class _ContentEditState extends State<ContentEdit> {
                 child: Text('upload'),
                 onPressed: () {
                   print(topics);
-                  _firestore
-                      .collection('Webinar')
-                      .doc(widget.webinarData['course'])
-                      .update({
-                    'topic title': [],
-                    'topic subtitle': [],
+                  _firestore.collection('Webinar').doc(course).update({
+                    'topic title': FieldValue.arrayUnion(topics.keys.toList()),
+                    'topic subtitle':
+                        FieldValue.arrayUnion(topics.values.toList())
                   });
                   // _firestore
                   //     .collection('Webinar')

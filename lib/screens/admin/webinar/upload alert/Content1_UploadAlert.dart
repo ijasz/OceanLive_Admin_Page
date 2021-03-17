@@ -466,7 +466,7 @@ class _Content1UploadAlertState extends State<Content1UploadAlert> {
                         'payment': Content1.paymentController.text.isEmpty
                             ? 'free'
                             : Content1.paymentController.text,
-                        'student enrolled': int.parse('100')
+                        'student enrolled': '100'
                       });
                       heading1Controller.clear();
                       heading2Controller.clear();
