@@ -13,16 +13,48 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
     <select />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4c1a96c-3111-4ddd-b906-518ab3d27fee" name="Default Changelist" comment="changed webinar">
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/payment/edit_payment.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/payment/payment_db.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/payment/update_payment.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/payment/view_payment.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/staff/edit_staff.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/staff/staff_db.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/staff/update_satff.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/staff/view_staff.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/student/edit_student.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/student/student_db.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/student/update_student.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/admin/student/view_student.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/Details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/Details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/course.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/course.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/notification.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/notification.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,22 +169,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="801" y="418" key="Github.ShareDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615202543984" />
-    <state width="1877" height="168" key="GridCell.Tab.0.bottom" timestamp="1615994500049">
+    <state width="1877" height="294" key="GridCell.Tab.0.bottom" timestamp="1616410348324">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="168" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615994500049" />
-    <state width="1877" height="168" key="GridCell.Tab.0.center" timestamp="1615994500049">
+    <state width="1877" height="294" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616410348324" />
+    <state width="1877" height="294" key="GridCell.Tab.0.center" timestamp="1616410348324">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="168" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615994500049" />
-    <state width="1877" height="168" key="GridCell.Tab.0.left" timestamp="1615994500049">
+    <state width="1877" height="294" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616410348324" />
+    <state width="1877" height="294" key="GridCell.Tab.0.left" timestamp="1616410348324">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="168" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615994500049" />
-    <state width="1877" height="168" key="GridCell.Tab.0.right" timestamp="1615994500049">
+    <state width="1877" height="294" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616410348324" />
+    <state width="1877" height="294" key="GridCell.Tab.0.right" timestamp="1616410348324">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="168" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615994500049" />
+    <state width="1877" height="294" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616410348324" />
     <state x="630" y="240" key="RollbackChangesDialog" timestamp="1615816080754">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -169,6 +201,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615441689184" />
+    <state x="564" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1616138868994">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="564" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1616138868994" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1615808496232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -177,10 +213,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="510" y="256" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1615555248433" />
-    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1615816418772">
+    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1616215884685">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615816418772" />
+    <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1616215884685" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1615386163878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -197,6 +233,26 @@
           <url>file://$PROJECT_DIR$/lib/screens/admin/webinar/upload alert/Content1_UploadAlert.dart</url>
           <line>453</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/admin/student/view_student.dart</url>
+          <line>154</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/admin/student/view_student.dart</url>
+          <line>153</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/admin/student/view_student.dart</url>
+          <line>152</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/admin/payment/view_payment.dart</url>
+          <line>23</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

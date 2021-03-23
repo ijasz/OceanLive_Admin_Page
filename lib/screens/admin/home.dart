@@ -127,6 +127,7 @@ class _AdminState extends State<Admin> {
         onTap: () {
           setState(() {
             //contentWidget = widget;
+            print(text);
 
             menuColor.updateAll((key, value) => menuColor[key] = false);
             menuColor[text] = true;

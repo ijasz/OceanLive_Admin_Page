@@ -78,17 +78,11 @@ class _SendNotificationState extends State<SendNotification> {
 }
 
 class ViewNotification extends StatefulWidget {
-  const ViewNotification({
-    Key key,
-  }) : super(key: key);
-
   @override
   _ViewNotificationState createState() => _ViewNotificationState();
 }
 
 class _ViewNotificationState extends State<ViewNotification> {
-  List<Widget> usersList = [];
-
   var users;
   var name;
   @override
@@ -126,6 +120,8 @@ class _ViewNotificationState extends State<ViewNotification> {
       }
     }
   }
+
+  List<Widget> usersList = [];
 
   getNotification(String userNumber, String userName) async {
     await for (var snapshot in _firestore
@@ -178,15 +174,17 @@ class _ViewNotificationState extends State<ViewNotification> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Column(
-          children: [],
-        ),
-        SizedBox(
-          height: 30,
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Column(
+            children: usersList,
+          ),
+          SizedBox(
+            height: 30,
+          )
+        ],
+      ),
     );
   }
 }
