@@ -427,11 +427,23 @@ class _EditCourseState extends State<EditCourse> {
                                                 title: "Enter Chapter name",
                                                 icon: Icon(
                                                   FontAwesomeIcons.times,
-                                                  color: Colors.red,
+                                                  color: Colors.greenAccent,
                                                 ),
+
+                                                ///todo chapter delete
                                                 onPress: () {
-                                                  setState(() {
-                                                    //chapter[key].removeAt(index);
+                                                  _firestore
+                                                      .collection('course')
+                                                      .doc("OCNBK17")
+                                                      .collection("syllabus")
+                                                      .doc("1")
+                                                      .update({
+                                                    'chapter':
+                                                        FieldValue.arrayRemove([
+                                                      "Data types, Variable, arrays, expressionss, Operators and Control Structures "
+                                                    ]),
+                                                  }).whenComplete(() {
+                                                    print('Field Deleted');
                                                   });
                                                 },
                                                 context: context),

@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -5,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ocean_live/screens/admin/webinar/Widgets/textfield_widgets.dart';
 import 'package:ocean_live/screens/admin/webinar/upload%20alert/Content1_UploadAlert.dart';
 import 'package:ocean_live/screens/admin/webinar/webinar.dart';
 import 'package:path/path.dart';
@@ -37,12 +39,14 @@ TextEditingController _subtitleController = TextEditingController();
 alert(context, {String topic, String subtitle, courseName}) {
   _titleController.text = topic;
   _subtitleController.text = subtitle;
+  print("${_titleController.text}title");
+  print("${_subtitleController.text}subtitle");
   return showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           content: Container(
-            height: 400,
+            height: 300,
             width: 400,
             child: Column(
               children: [
@@ -57,15 +61,26 @@ alert(context, {String topic, String subtitle, courseName}) {
                     'Update',
                     style: TextStyle(fontSize: 30),
                   ),
-                  onPressed: () {
-                    print('${courseName}    edit course');
-                    // _firestore.collection('Webinar').doc(courseName).update({
-                    //   'topics subtitle' : FieldValue.arrayUnion([topic]),
-                    //   'topic title' : FieldValue.arrayUnion([subtitle]),
-                    // });
-                    // topics
-                    //     .addAll({_titleController.text: _titleController.text});
-                    // print(topics);
+                  onPressed: () async {
+                    await _firestore
+                        .collection('Webinar')
+                        .doc(courseName)
+                        .update({
+                      'topic subtitle': FieldValue.arrayRemove([subtitle]),
+                      'topic title': FieldValue.arrayRemove([topic])
+                    }).whenComplete(() {
+                      print('Field Deleted');
+                    });
+                    print("$topics          topics");
+                    _firestore.collection('Webinar').doc(courseName).update({
+                      'topic subtitle':
+                          FieldValue.arrayUnion([_subtitleController.text]),
+                      'topic title':
+                          FieldValue.arrayUnion([_titleController.text])
+                    }).whenComplete(() {
+                      print('Field Deleted');
+                    });
+                    window.location.reload();
                   },
                 )
               ],
@@ -94,7 +109,8 @@ class _ContentEditState extends State<ContentEdit> {
   num year;
   num day;
   num month;
-  var mentorImage;
+  String mentorImage;
+  var mentorLink;
   var mentorImage2;
   var minutes;
   DateTime time;
@@ -120,6 +136,46 @@ class _ContentEditState extends State<ContentEdit> {
   Uint8List uploadfile2;
   Uint8List uploadfile;
   bool isComplete = false, isOnline = false, isOffline = false;
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2025));
+
+    final TimeOfDay tpicked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        print(tpicked);
+
+        print(selectedDate.compareTo(DateTime.now()));
+        // timestamp = '$selectedDate $tpicked';
+        time = DateTime(selectedDate.year, selectedDate.month, selectedDate.day,
+            tpicked.hour, tpicked.minute);
+        print(DateTime);
+        print('=====================');
+        print(time);
+        print(time.runtimeType);
+        dateTimeController.text = DateFormat.yMd().format(selectedDate);
+      });
+    year = int.parse(DateFormat('y').format(selectedDate));
+    month = int.parse(DateFormat('MM').format(selectedDate));
+    day = int.parse(DateFormat('d').format(selectedDate));
+    print(year);
+    print(month);
+    print(day);
+  }
+
+  List<Widget> allTopicWidget = [];
+
+  String thisId;
 
   Widget _trainerNameField() {
     return TextFormField(
@@ -319,7 +375,7 @@ class _ContentEditState extends State<ContentEdit> {
     );
   }
 
-  Widget _aboutMentor() {
+  Widget _aboutMentorField() {
     return TextFormField(
       validator: (value) {
         if (value.isEmpty) {
@@ -352,7 +408,7 @@ class _ContentEditState extends State<ContentEdit> {
     );
   }
 
-  Widget _designation() {
+  Widget _designationField() {
     return TextFormField(
       validator: (value) {
         if (value.isEmpty) {
@@ -385,7 +441,7 @@ class _ContentEditState extends State<ContentEdit> {
     );
   }
 
-  Widget _payment() {
+  Widget _paymentField() {
     return TextFormField(
       validator: (value) {
         if (value.isEmpty) {
@@ -487,52 +543,19 @@ class _ContentEditState extends State<ContentEdit> {
     );
   }
 
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2025));
-
-    final TimeOfDay tpicked = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-
-    if (picked != null)
-      setState(() {
-        selectedDate = picked;
-        print(tpicked);
-
-        print(selectedDate.compareTo(DateTime.now()));
-        // timestamp = '$selectedDate $tpicked';
-        time = DateTime(selectedDate.year, selectedDate.month, selectedDate.day,
-            tpicked.hour, tpicked.minute);
-        print(DateTime);
-        print('=====================');
-        print(time);
-        print(time.runtimeType);
-        dateTimeController.text = DateFormat.yMd().format(selectedDate);
-      });
-    year = int.parse(DateFormat('y').format(selectedDate));
-    month = int.parse(DateFormat('MM').format(selectedDate));
-    day = int.parse(DateFormat('d').format(selectedDate));
-    print(year);
-    print(month);
-    print(day);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // mentorLink = widget.webinarData['trainer image'];
+    print('$mentorLink    ///////init ////////////////////////////////////');
   }
 
-  List<Widget> allTopicWidget = [];
-
-  String thisId;
   @override
   Widget build(BuildContext context) {
     ContentEdit.topicTitle = widget.webinarData['topic title'];
     ContentEdit.topicSubtitle = widget.webinarData['topic subtitle'];
-    mentorImage = widget.webinarData['trainer image'];
     studentEnrolledController.text = widget.webinarData['student enrolled'];
-    // studentEnrolled = widget.webinarData['student enrolled'];
     minutes = widget.webinarData['trainer image'];
     mentorImage2 = widget.webinarData['mentor image'];
     ContentEdit.video = widget.webinarData['webinar video'];
@@ -575,7 +598,9 @@ class _ContentEditState extends State<ContentEdit> {
     superTitleController.text = widget.webinarData['super title'];
     mainTitleController.text = widget.webinarData['main title'];
     mainSubtitleController.text = widget.webinarData['main subtitle'];
+
     // studentEnrolledController.text = widget.webinarData['student enrolled'];
+
     return Expanded(
       child: SingleChildScrollView(
         child: Container(
@@ -628,6 +653,7 @@ class _ContentEditState extends State<ContentEdit> {
                           'main title': mainTitleController.text,
                           'main subtitle': mainSubtitleController.text,
                           'student enrolled': studentEnrolledController.text,
+                          'trainer image': mentorImage
                         });
                       },
                       child: Row(
@@ -704,38 +730,38 @@ class _ContentEditState extends State<ContentEdit> {
                                       .child(filename);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                          content:
-                                              Text('Please wait few soconds')));
+                                          content: Text(
+                                              'Please wait for few seconds')));
                                   UploadTask uploadTask =
                                       firebaseStorageRef.putData(uploadfile);
                                   TaskSnapshot taskSnapshot =
                                       await uploadTask.whenComplete(() {
                                     setState(() {
                                       print("Profile Picture uploaded");
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'Staff Picture Uploaded')));
                                       uploadTask.snapshot.ref
                                           .getDownloadURL()
                                           .then((value) {
                                         setState(() {
-                                          mentorImage = value;
+                                          widget.webinarData['trainer image'] =
+                                              value;
                                         });
                                         _firestore
                                             .collection('Webinar')
                                             .doc(course)
-                                            .update(
-                                                {'trainer image': mentorImage});
+                                            .update({
+                                          'trainer image': widget
+                                              .webinarData['trainer image']
+                                        });
 
-                                        print(
-                                            "${mentorImage} ////////////353 mentor Image");
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Trainer's first picture uploaded")));
                                       });
                                     });
                                   });
                                 }
 
-                                print('${mentorImage}  /////359 mentor Image');
                                 uploadPic(context);
                               },
                             ),
@@ -748,7 +774,7 @@ class _ContentEditState extends State<ContentEdit> {
                               width: 420,
                               height: 520,
                               child: Image.network(
-                                '${mentorImage}',
+                                widget.webinarData['trainer image'],
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -789,13 +815,13 @@ class _ContentEditState extends State<ContentEdit> {
                                                   SizedBox(height: 30),
                                                   _trainerNameField(),
                                                   SizedBox(height: 30),
-                                                  _designation(),
+                                                  _designationField(),
                                                   SizedBox(height: 30),
-                                                  _aboutMentor(),
+                                                  _aboutMentorField(),
                                                   SizedBox(height: 30),
                                                   _webinarDurationField(),
                                                   SizedBox(height: 30),
-                                                  _payment(),
+                                                  _paymentField(),
                                                   SizedBox(height: 30),
                                                   Row(
                                                     mainAxisAlignment:
@@ -943,39 +969,38 @@ class _ContentEditState extends State<ContentEdit> {
                                       .child(filename);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                          content:
-                                              Text('Please wait few soconds')));
+                                          content: Text(
+                                              'Please wait for few seconds')));
                                   UploadTask uploadTask =
                                       firebaseStorageRef.putData(uploadfile);
                                   TaskSnapshot taskSnapshot =
                                       await uploadTask.whenComplete(() {
                                     setState(() {
                                       print("Profile Picture uploaded");
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'Staff Picture Uploaded')));
+
                                       uploadTask.snapshot.ref
                                           .getDownloadURL()
                                           .then((value) {
                                         setState(() {
-                                          mentorImage2 = value;
+                                          widget.webinarData['mentor image'] =
+                                              value;
                                         });
-
                                         _firestore
                                             .collection('Webinar')
                                             .doc(course)
-                                            .update(
-                                                {'mentor image': mentorImage2});
-
-                                        print(
-                                            "${mentorImage2} ////////////353 mentor Image");
+                                            .update({
+                                          'mentor image':
+                                              widget.webinarData['mentor image']
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "Trainer's second picture uploaded")));
                                       });
                                     });
                                   });
                                 }
 
-                                print('${mentorImage2}  /////359 mentor Image');
                                 uploadPic(context);
                               },
                             ),
@@ -989,7 +1014,7 @@ class _ContentEditState extends State<ContentEdit> {
                               width: 420,
                               height: 520,
                               child: Image.network(
-                                '${mentorImage2}',
+                                widget.webinarData['mentor image'],
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -1112,15 +1137,17 @@ class _ContentEditState extends State<ContentEdit> {
                                           .getDownloadURL()
                                           .then((value) {
                                         setState(() {
-                                          ContentEdit.getLink = value;
+                                          widget.webinarData['webinar video'] =
+                                              value;
                                         });
 
-                                        print(ContentEdit.getLink);
+                                        // print(ContentEdit.getLink);
                                         _firestore
                                             .collection('Webinar')
                                             .doc(course)
                                             .update({
-                                          "webinar video": ContentEdit.getLink
+                                          "webinar video": widget
+                                              .webinarData['webinar video']
                                         });
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
@@ -1204,19 +1231,20 @@ class _ContentEditState extends State<ContentEdit> {
                 child: Text('upload'),
                 onPressed: () {
                   print(topics);
-                  _firestore.collection('Webinar').doc(course).update({
+                  // _firestore.collection('Webinar').doc("Flutter").update({
+                  //   'topic subtitle': FieldValue.arrayRemove(["jaya"]),
+                  //   'topic title': FieldValue.arrayRemove(["1"])
+                  // }).whenComplete(() {
+                  //   print('Field Deleted');
+                  // });
+                  _firestore
+                      .collection('Webinar')
+                      .doc(widget.webinarData['course'])
+                      .update({
                     'topic title': FieldValue.arrayUnion(topics.keys.toList()),
                     'topic subtitle':
                         FieldValue.arrayUnion(topics.values.toList())
                   });
-                  // _firestore
-                  //     .collection('Webinar')
-                  //     .doc(widget.webinarData['course'])
-                  //     .update({
-                  //   'topic title': FieldValue.arrayUnion(topics.keys.toList()),
-                  //   'topic subtitle':
-                  //       FieldValue.arrayUnion(topics.values.toList())
-                  // });
                 },
               ),
               SizedBox(height: 50),
@@ -1228,158 +1256,158 @@ class _ContentEditState extends State<ContentEdit> {
   }
 }
 
-class ListAlert extends StatefulWidget {
-  Function onpress;
-  String title;
-  String subtitle;
-  TextEditingController topicTitleController = TextEditingController();
-  TextEditingController topicSubtitleController = TextEditingController();
-  ListAlert(
-      {this.onpress,
-      this.topicTitleController,
-      this.topicSubtitleController,
-      this.title,
-      this.subtitle});
-  @override
-  _ListAlertState createState() => _ListAlertState();
-}
-
-class _ListAlertState extends State<ListAlert> {
-  Widget _titleField() {
-    return TextFormField(
-      enableSuggestions: true,
-      style: TextStyle(
-        fontSize: 16,
-      ),
-      maxLines: 10,
-      validator: (value) {
-        if (value.isEmpty) {
-          print(value);
-          return "query is required";
-        } else if (value.length < 2) {
-          return 'character should be more than 2';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 40, left: 5),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(width: 1, color: Colors.black54)),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(width: 1, color: Colors.blueAccent),
-        ),
-        labelText: 'Title',
-        labelStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 15,
-        ),
-      ),
-      controller: widget.topicTitleController,
-      onChanged: (value) {
-        widget.title = value;
-      },
-    );
-  }
-
-  Widget _subTitleField() {
-    return TextFormField(
-      style: TextStyle(
-        fontSize: 16,
-      ),
-      maxLines: 10,
-      validator: (value) {
-        if (value.isEmpty) {
-          print(value);
-          return "query is required";
-        } else if (value.length < 2) {
-          return 'character should be more than 2';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: 40, left: 5),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(width: 1, color: Colors.black54)),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(width: 1, color: Colors.blueAccent),
-        ),
-        labelText: 'Sub Title',
-        labelStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 15,
-        ),
-      ),
-      controller: widget.topicSubtitleController,
-      onChanged: (value) {
-        widget.subtitle = value;
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    widget.topicTitleController.text = widget.title;
-    widget.topicSubtitleController.text = widget.subtitle;
-    return Container(
-      height: 400,
-      color: Colors.white,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                padding: EdgeInsets.only(right: 15, top: 15),
-                child: MaterialButton(
-                  hoverColor: Colors.red[400],
-                  height: 10,
-                  minWidth: 20,
-                  padding: EdgeInsets.zero,
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.black,
-                  ),
-                ),
-              )
-            ],
-          ),
-          SizedBox(height: 40),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Column(
-              children: [
-                Container(
-                  height: 100,
-                  width: 250,
-                  child: _titleField(),
-                ),
-                SizedBox(height: 30),
-                Container(
-                  height: 100,
-                  width: 250,
-                  child: _subTitleField(),
-                ),
-                SizedBox(height: 30),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  color: Colors.green[500],
-                  onPressed: widget.onpress,
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text('Add'),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// class ListAlert extends StatefulWidget {
+//   Function onpress;
+//   String title;
+//   String subtitle;
+//   TextEditingController topicTitleController = TextEditingController();
+//   TextEditingController topicSubtitleController = TextEditingController();
+//   ListAlert(
+//       {this.onpress,
+//       this.topicTitleController,
+//       this.topicSubtitleController,
+//       this.title,
+//       this.subtitle});
+//   @override
+//   _ListAlertState createState() => _ListAlertState();
+// }
+//
+// class _ListAlertState extends State<ListAlert> {
+//   Widget _titleField() {
+//     return TextFormField(
+//       enableSuggestions: true,
+//       style: TextStyle(
+//         fontSize: 16,
+//       ),
+//       maxLines: 10,
+//       validator: (value) {
+//         if (value.isEmpty) {
+//           print(value);
+//           return "query is required";
+//         } else if (value.length < 2) {
+//           return 'character should be more than 2';
+//         }
+//         return null;
+//       },
+//       decoration: InputDecoration(
+//         contentPadding: EdgeInsets.only(top: 40, left: 5),
+//         enabledBorder: OutlineInputBorder(
+//             borderRadius: BorderRadius.all(Radius.circular(8)),
+//             borderSide: BorderSide(width: 1, color: Colors.black54)),
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.all(Radius.circular(8)),
+//           borderSide: BorderSide(width: 1, color: Colors.blueAccent),
+//         ),
+//         labelText: 'Title',
+//         labelStyle: TextStyle(
+//           color: Colors.black,
+//           fontSize: 15,
+//         ),
+//       ),
+//       controller: widget.topicTitleController,
+//       onChanged: (value) {
+//         widget.title = value;
+//       },
+//     );
+//   }
+//
+//   Widget _subTitleField() {
+//     return TextFormField(
+//       style: TextStyle(
+//         fontSize: 16,
+//       ),
+//       maxLines: 10,
+//       validator: (value) {
+//         if (value.isEmpty) {
+//           print(value);
+//           return "query is required";
+//         } else if (value.length < 2) {
+//           return 'character should be more than 2';
+//         }
+//         return null;
+//       },
+//       decoration: InputDecoration(
+//         contentPadding: EdgeInsets.only(top: 40, left: 5),
+//         enabledBorder: OutlineInputBorder(
+//             borderRadius: BorderRadius.all(Radius.circular(8)),
+//             borderSide: BorderSide(width: 1, color: Colors.black54)),
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.all(Radius.circular(8)),
+//           borderSide: BorderSide(width: 1, color: Colors.blueAccent),
+//         ),
+//         labelText: 'Sub Title',
+//         labelStyle: TextStyle(
+//           color: Colors.black,
+//           fontSize: 15,
+//         ),
+//       ),
+//       controller: widget.topicSubtitleController,
+//       onChanged: (value) {
+//         widget.subtitle = value;
+//       },
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     widget.topicTitleController.text = widget.title;
+//     widget.topicSubtitleController.text = widget.subtitle;
+//     return Container(
+//       height: 400,
+//       color: Colors.white,
+//       child: Column(
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.end,
+//             children: [
+//               Container(
+//                 padding: EdgeInsets.only(right: 15, top: 15),
+//                 child: MaterialButton(
+//                   hoverColor: Colors.red[400],
+//                   height: 10,
+//                   minWidth: 20,
+//                   padding: EdgeInsets.zero,
+//                   onPressed: () {},
+//                   child: Icon(
+//                     Icons.close,
+//                     color: Colors.black,
+//                   ),
+//                 ),
+//               )
+//             ],
+//           ),
+//           SizedBox(height: 40),
+//           Container(
+//             padding: EdgeInsets.symmetric(horizontal: 40),
+//             child: Column(
+//               children: [
+//                 Container(
+//                   height: 100,
+//                   width: 250,
+//                   child: _titleField(),
+//                 ),
+//                 SizedBox(height: 30),
+//                 Container(
+//                   height: 100,
+//                   width: 250,
+//                   child: _subTitleField(),
+//                 ),
+//                 SizedBox(height: 30),
+//                 RaisedButton(
+//                   shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(10)),
+//                   color: Colors.green[500],
+//                   onPressed: widget.onpress,
+//                   child: Padding(
+//                     padding: EdgeInsets.all(10),
+//                     child: Text('Add'),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

@@ -140,7 +140,8 @@ class _MentorState extends State<Mentor> {
                               linkinLink: dbLinkedIn,
                               twitterLink: dbTwitter,
                               onLongPress: () {
-                                image = dbimage;
+                                image = message.data()['image'];
+                                print("$image   //////////////getting image");
                                 _name.text = dbName;
                                 _designation.text = dbDesignation;
                                 _fbLink.text = dbFb;
@@ -149,7 +150,7 @@ class _MentorState extends State<Mentor> {
                                 _twitter.text = dbTwitter;
                                 displayDialog(
                                     name: MentorEdit(
-                                      mentorLink: image,
+                                      mentorLink: message.data()['image'],
                                       name: _name,
                                       designation: _designation,
                                       fbLink: _fbLink,
@@ -164,6 +165,7 @@ class _MentorState extends State<Mentor> {
                                           FilePickerResult result =
                                               await FilePicker.platform
                                                   .pickFiles();
+
                                           if (result != null) {
                                             uploadfile =
                                                 result.files.single.bytes;
@@ -199,14 +201,16 @@ class _MentorState extends State<Mentor> {
                                                     .getDownloadURL()
                                                     .then((value) {
                                                   setState(() {
-                                                    image = value;
+                                                    _firestore
+                                                        .collection('mentor')
+                                                        .doc(thisDocsid)
+                                                        .set({
+                                                      'image': image,
+                                                    });
+                                                    setState(() {
+                                                      image = value;
+                                                    });
                                                   });
-                                                  setState(() {
-                                                    image = fetchimage;
-                                                  });
-
-                                                  print(
-                                                      "${fetchimage}yyyyyyyyyyyyyyyyyyyyyyyy");
                                                 });
                                               });
                                             });
@@ -1007,8 +1011,6 @@ class _MentorEditState extends State<MentorEdit> {
       ),
     );
   }
-
-  ///todo futeure
 }
 
 ///< Heading widget >///
