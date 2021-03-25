@@ -47,30 +47,32 @@ class _SendNotificationState extends State<SendNotification> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Expanded(
-      child: Container(
-        padding: pagePadding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                aCustomButtom(
-                    text: "Send Notification",
-                    iconData: FontAwesomeIcons.bell,
-                    buttonClick: () {
-                      Provider.of<Routing>(context, listen: false)
-                          .updateRouting(widget: SendNotifications());
-                    },
-                    fontSize: 22,
-                    iconSize: 19)
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ViewNotification(),
-          ],
+      child: SingleChildScrollView(
+        child: Container(
+          padding: pagePadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  aCustomButtom(
+                      text: "Send Notification",
+                      iconData: FontAwesomeIcons.bell,
+                      buttonClick: () {
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: SendNotifications());
+                      },
+                      fontSize: 22,
+                      iconSize: 19)
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ViewNotification(),
+            ],
+          ),
         ),
       ),
     );
@@ -117,6 +119,8 @@ class _ViewNotificationState extends State<ViewNotification> {
         name = message.data()["First Name"];
 
         getNotification(userNumber, name);
+        getSpecific(userNumber, name);
+        getSubjectNotification(userNumber, name);
       }
     }
   }
@@ -172,19 +176,108 @@ class _ViewNotificationState extends State<ViewNotification> {
     }
   }
 
+  getSubjectNotification(String userNumber, String userName) async {
+    await for (var snapshot in _firestore
+        .collection('new users')
+        .doc(userNumber)
+        .collection("subjectnotification")
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        var description = message.data()['description'];
+        print(userName);
+        print(userNumber);
+        print(description);
+        Container userNotification = Container(
+          margin: EdgeInsets.symmetric(vertical: 20.0),
+          width: 1300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            color: Color(0XFFF7F7F7),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                // spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                userName,
+                style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF002C47)),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 16, color: Color(0xFF555454)),
+              ),
+            ],
+          ),
+        );
+        usersList.add(userNotification);
+      }
+    }
+  }
+
+  getSpecific(String userNumber, String userName) async {
+    await for (var snapshot in _firestore
+        .collection('new users')
+        .doc(userNumber)
+        .collection("specificnotification")
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        var description = message.data()['description'];
+        print(userName);
+        print(userNumber);
+        print(description);
+        Container userNotification = Container(
+          margin: EdgeInsets.symmetric(vertical: 20.0),
+          width: 1300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            color: Color(0XFFF7F7F7),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                // spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          padding: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                userName,
+                style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF002C47)),
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 16, color: Color(0xFF555454)),
+              ),
+            ],
+          ),
+        );
+        usersList.add(userNotification);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Column(
-            children: usersList,
-          ),
-          SizedBox(
-            height: 30,
-          )
-        ],
-      ),
+      child: Column(children: usersList),
     );
   }
 }

@@ -691,11 +691,7 @@ class _TableWidgetState extends State<TableWidget> {
       // ignore: missing_return
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Container(
-            height: 400,
-            width: 400,
-            color: Colors.black,
-          );
+          return Text("Loading........");
         } else {
           final messages = snapshot.data.docs;
           List<StaffDb> staff = [];
@@ -863,60 +859,132 @@ class _TableWidgetState extends State<TableWidget> {
     ));
     return Padding(
       padding: const EdgeInsets.all(0.0),
-      child: Table(
-        border: TableBorder(
-          bottom: BorderSide(color: Color(0xFFDFDFDF), width: 1),
-        ),
+      // child: Table(
+      //   border: TableBorder(
+      //     bottom: BorderSide(color: Color(0xFFDFDFDF), width: 1),
+      //   ),
+      //   children: [
+      //     TableRow(
+      //       children: [
+      //         StreamBuilder<QuerySnapshot>(
+      //           stream: _firestore.collection('new users').snapshots(),
+      //           // ignore: missing_return
+      //           builder: (context, snapshot) {
+      //             if (!snapshot.hasData) {
+      //               return Text("Loading.....");
+      //             } else {
+      //               final messages = snapshot.data.docs;
+      //               List<StudentDb> student = [];
+      //               for (var message in messages) {
+      //                 final studentName = message.data()['First Name'];
+      //                 final lastName = message.data()['Last Name'];
+      //                 final studentImage = message.data()['Profile Picture'];
+      //                 final qualification = message.data()['Degree'];
+      //                 final dateofbirth = message.data()['Date of Birth'];
+      //                 List courseEnrool = message.data()['Courses'];
+      //                 final email = message.data()['E Mail'];
+      //                 final mobileNumber = message.data()['Phone Number'];
+      //                 final gender = message.data()['Gender'];
+      //                 final country = message.data()['Country'];
+      //                 final state = message.data()['State'];
+      //                 final company = message.data()['Company or School'];
+      //                 final studentData = StudentDb(
+      //                   studentName: studentName,
+      //                   qualification: qualification,
+      //                   dateofbirth: dateofbirth,
+      //                   courseEnrool: courseEnrool,
+      //                   email: email,
+      //                   mobilenumber: mobileNumber,
+      //                   studentImage: studentImage,
+      //                   gender: gender,
+      //                   state: state,
+      //                   company_school: company,
+      //                   country: country,
+      //                   lastName: lastName,
+      //                 );
+      //                 // Text('$messageText from $messageSender');
+      //                 student.add(studentData);
+      //               }
+      //               return Column(
+      //                 //alignment: WrapAlignment.start,
+      //                 children: student,
+      //               );
+      //             }
+      //           },
+      //         )
+      //         // studentDb(),
+      //         // flag == 1
+      //         //
+      //         //     ///todo remove the commented lines
+      //         //     // StreamBuilder<QuerySnapshot>(
+      //         //     //   stream: _firestore.collection('staff').snapshots(),
+      //         //     //   builder: (context, snapshot) {
+      //         //     //     if (!snapshot.hasData) {
+      //         //     //       return Container(
+      //         //     //         height: 400,
+      //         //     //         width: 400,
+      //         //     //         color: Colors.black,
+      //         //     //       );
+      //         //     //     } else {
+      //         //     //       final messages = snapshot.data.docs;
+      //         //     //       List<StaffDb> staff = [];
+      //         //     //       for (var message in messages) {
+      //         //     //         final trainerName = message.data()['trainername'];
+      //         //     //         final trainerImage = message.data()['trainerimage'];
+      //         //     //         final qualification =
+      //         //     //         message.data()['qualification'];
+      //         //     //         final dateofbirth = message.data()['dateofbirth'];
+      //         //     //         final dateofjoining = message.data()['dateofjoin'];
+      //         //     //         final email = message.data()['email'];
+      //         //     //         final mobileNumber = message.data()['mobileNumber'];
+      //         //     //         final address = message.data()['address'];
+      //         //     //         final staffData = StaffDb(
+      //         //     //           trainername: trainerName,
+      //         //     //           qualification: qualification,
+      //         //     //           dateofbirth: dateofbirth,
+      //         //     //           dateofjoining: dateofjoining,
+      //         //     //           email: email,
+      //         //     //           mobilenumber: mobileNumber,
+      //         //     //           trainerImage: trainerImage,
+      //         //     //           address: address,
+      //         //     //         );
+      //         //     //         staff.add(staffData);
+      //         //     //       }
+      //         //     //       print(staff);
+      //         //     //       return Column(
+      //         //     //         children: staff,
+      //         //     //       );
+      //         //     //     }
+      //         //     //   },
+      //         //     // ) ///
+      //         //
+      //         //     ? Container(
+      //         //         height: 500,
+      //         //         width: 500,
+      //         //         color: Colors.pink,
+      //         //       )
+      //         //
+      //         //     ///todo student Db
+      //         //     : flag == 2
+      //         //         ? studentDb()
+      //         //
+      //         //         ///todo pay1
+      //         //         : Container(
+      //         //             color: Colors.yellowAccent,
+      //         //             height: 500,
+      //         //             width: 500,
+      //         //           )
+      //       ],
+      //     ),
+      //   ],
+      // ),
+      child: Column(
         children: [
-          TableRow(
-            children: [
-              flag == 1
-                  ? StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('staff').snapshots(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container(
-                            height: 400,
-                            width: 400,
-                            color: Colors.black,
-                          );
-                        } else {
-                          final messages = snapshot.data.docs;
-                          List<StaffDb> staff = [];
-                          for (var message in messages) {
-                            final trainerName = message.data()['trainername'];
-                            final trainerImage = message.data()['trainerimage'];
-                            final qualification =
-                                message.data()['qualification'];
-                            final dateofbirth = message.data()['dateofbirth'];
-                            final dateofjoining = message.data()['dateofjoin'];
-                            final email = message.data()['email'];
-                            final mobileNumber = message.data()['mobileNumber'];
-                            final address = message.data()['address'];
-                            final staffData = StaffDb(
-                              trainername: trainerName,
-                              qualification: qualification,
-                              dateofbirth: dateofbirth,
-                              dateofjoining: dateofjoining,
-                              email: email,
-                              mobilenumber: mobileNumber,
-                              trainerImage: trainerImage,
-                              address: address,
-                            );
-                            staff.add(staffData);
-                          }
-                          print(staff);
-                          return Column(
-                            children: staff,
-                          );
-                        }
-                      },
-                    )
-                  : flag == 2
-                      ? studentDb()
-                      : pay1()
-            ],
-          ),
+          flag == 1
+              ? staffDb()
+              : flag == 2
+                  ? studentDb()
+                  : pay1()
         ],
       ),
     );

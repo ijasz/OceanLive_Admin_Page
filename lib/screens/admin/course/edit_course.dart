@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:ocean_live/screens/admin/Details.dart';
 import 'package:ocean_live/screens/admin/course/view_course.dart';
 import 'package:ocean_live/screens/admin/notification/send_notification.dart';
 import 'package:universal_html/html.dart';
-
 import '../course.dart';
 import 'add_course.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -97,7 +95,6 @@ class _EditCourseState extends State<EditCourse> {
         .collection('syllabus')
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
-        //print(message.documentID);
         syllabusCount = message.documentID;
         syllabusSort.add(int.parse(syllabusCount));
       }
@@ -431,16 +428,32 @@ class _EditCourseState extends State<EditCourse> {
                                                 ),
 
                                                 ///todo chapter delete
-                                                onPress: () {
+                                                onPress: () async {
+                                                  print(widget.batchid);
+                                                  print(message
+                                                      .data()["chapter"][i]);
+                                                  await _firestore
+                                                      .collection('course')
+                                                      .doc(widget.batchid)
+                                                      .collection("syllabus")
+                                                      .where("chapter",
+                                                          isEqualTo:
+                                                              message.data()[
+                                                                  "chapter"][i])
+                                                      .snapshots();
+                                                  var doc = message.id;
+                                                  print(doc);
+
                                                   _firestore
                                                       .collection('course')
-                                                      .doc("OCNBK17")
+                                                      .doc(widget.batchid)
                                                       .collection("syllabus")
-                                                      .doc("1")
+                                                      .doc(doc)
                                                       .update({
                                                     'chapter':
                                                         FieldValue.arrayRemove([
-                                                      "Data types, Variable, arrays, expressionss, Operators and Control Structures "
+                                                      message.data()["chapter"]
+                                                          [i]
                                                     ]),
                                                   }).whenComplete(() {
                                                     print('Field Deleted');
@@ -457,6 +470,7 @@ class _EditCourseState extends State<EditCourse> {
                                     final syllabus = SyllabusDb(
                                       section: messageContent2,
                                       chapterWidget: chapterWidget,
+                                      //chapter: sectionSubWidget(5),
                                     );
                                     syllabusDetails.add(syllabus);
                                     print("${chapterWidget}chapter");
@@ -657,7 +671,7 @@ class _EditCourseState extends State<EditCourse> {
     print(AddCourse.generatedid);
   }
 
-  Widget sectionSubWidget(key, String holdsub) {
+  Widget sectionSubWidget(key) {
     print("Sub $key");
     return Column(
       children: [
@@ -779,7 +793,9 @@ class _EditCourseState extends State<EditCourse> {
       itemCount: chapter.keys.length,
       itemBuilder: (context, key) {
         return ListTile(
-          title: sectionSubWidget(key, holdmain.toString()),
+          title: sectionSubWidget(
+            key,
+          ),
         );
       },
     );
@@ -894,8 +910,9 @@ class _EditCourseState extends State<EditCourse> {
 class SyllabusDb extends StatefulWidget {
   String section;
   List<Widget> chapterWidget;
+  Widget chapter;
 
-  SyllabusDb({this.section, this.chapterWidget});
+  SyllabusDb({this.section, this.chapterWidget, this.chapter});
 
   @override
   _SyllabusDbState createState() => _SyllabusDbState();
@@ -1076,22 +1093,27 @@ class _SyllabusDbState extends State<SyllabusDb> {
               SizedBox(
                 height: 20,
               ),
-
+              //widget.chapter.,
+              ///todo add new chapter
               Row(children: [
                 Container(
                   padding: EdgeInsets.only(left: 50),
                   child: aCustomButtom(
                       text: "Add new chapter",
                       iconData: FontAwesomeIcons.plus,
-                      buttonClick: () {
-                        setState(() {
-                          // chapterMainWidget();
-                        });
-                        setState(() {
-                          subject.add(chaptervalue);
-                          print(subject);
-                        });
-                      },
+                      // buttonClick: () {
+                      //   setState(() {
+                      //     // chapterMainWidget();
+                      //     List n = chapter[key];
+                      //     n.add("");
+                      //     chapter[key] = n;
+                      //     print("latha");
+                      //   });
+                      //   setState(() {
+                      //     subject.add(chaptervalue);
+                      //     print(subject);
+                      //   });
+                      // },
                       fontSize: 22,
                       iconSize: 30),
                 ),
