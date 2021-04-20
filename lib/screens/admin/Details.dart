@@ -616,75 +616,6 @@ Future<void> displayDialog({name, context}) async {
 }
 
 class _TableWidgetState extends State<TableWidget> {
-  // Widget subjectNotify() {
-  //   StreamBuilder<QuerySnapshot>(
-  //       stream: _firestore.collection("new users").snapshots(),
-  //       builder: (context, snapshot) {
-  //         if (!snapshot.hasData) {
-  //           return Text("Loading...");
-  //         } else {
-  //           final messages = snapshot.data.docs;
-  //           for (var message in messages) {
-  //             document = message.id;
-  //             print("${document}document outer");
-  //           }
-  //         }
-  //         return paymentDb(document);
-  //       });
-  // }
-
-  Widget paymentDb() {
-    StreamBuilder paymentList;
-    print("${Course.studentid}");
-    print("${"docid"} inner");
-    paymentList = StreamBuilder<QuerySnapshot>(
-      stream: _firestore
-          .collection('new users')
-          .doc("+91 1234567890")
-          .collection("payment")
-          .snapshots(),
-      // ignore: missing_return
-
-      builder: (context, snapshot) {
-        print("${"docid"} jaya");
-        if (!snapshot.hasData) {
-          return Text("Loading.....");
-        } else {
-          print("${"docid"} thhhhhhhhhhhhhhhhh");
-          final messages = snapshot.data.docs;
-          List<PaymentDb> payment = [];
-          for (var message in messages) {
-            final name = message.data()['name'];
-            final totalAmount = message.data()['totalamount'];
-            final amountPaid = message.data()['amountpaid'];
-            final dueAmount = message.data()['dueamount'];
-            final paidDate = message.data()['paiddate'];
-            print("${paidDate}paidDate");
-            final nextPayment = message.data()['nextpaymentdate'];
-            print("${nextPayment}nextPayment");
-            final paymentMode = message.data()['paymentmode'];
-
-            final paymentData = PaymentDb(
-              student: name,
-              totalAmount: totalAmount,
-              amountPaid: amountPaid,
-              dueAmount: dueAmount,
-              paidDate: paidDate,
-              nextDate: nextPayment,
-              payMode: paymentMode,
-            );
-            // Text('$messageText from $messageSender');
-            payment.add(paymentData);
-          }
-          return Column(
-            children: payment,
-          );
-        }
-      },
-    );
-    return paymentList;
-  }
-
   Widget staffDb() {
     var subject = StreamBuilder<QuerySnapshot>(
       stream: _firestore.collection('staff').snapshots(),
@@ -777,8 +708,63 @@ class _TableWidgetState extends State<TableWidget> {
     return student;
   }
 
+  Widget paymentDb() {
+    StreamBuilder paymentList;
+    print("${Course.studentid}");
+    print("${"docid"} inner");
+    List collection = ["+91 1234567890", "+91 8015122373"];
+    for (var i in collection) {
+      paymentList = StreamBuilder<QuerySnapshot>(
+        stream: _firestore
+            .collection('new users')
+            .doc(i)
+            .collection("payment")
+            .snapshots(),
+        // ignore: missing_return
+
+        builder: (context, snapshot) {
+          print("${"docid"} jaya");
+          if (!snapshot.hasData) {
+            return Text("Loading.....");
+          } else {
+            print("${"docid"} thhhhhhhhhhhhhhhhh");
+            final messages = snapshot.data.docs;
+            List<PaymentDb> payment = [];
+            for (var message in messages) {
+              final name = message.data()['name'];
+              final totalAmount = message.data()['totalamount'];
+              final amountPaid = message.data()['amountpaid'];
+              final dueAmount = message.data()['dueamount'];
+              final paidDate = message.data()['paiddate'];
+              print("${paidDate}paidDate");
+              final nextPayment = message.data()['nextpaymentdate'];
+              print("${nextPayment}nextPayment");
+              final paymentMode = message.data()['paymentmode'];
+
+              final paymentData = PaymentDb(
+                student: name,
+                totalAmount: totalAmount,
+                amountPaid: amountPaid,
+                dueAmount: dueAmount,
+                paidDate: paidDate,
+                nextDate: nextPayment,
+                payMode: paymentMode,
+              );
+              // Text('$messageText from $messageSender');
+              payment.add(paymentData);
+            }
+            return Column(
+              children: payment,
+            );
+          }
+        },
+      );
+      return paymentList;
+    }
+  }
+
   String users;
-  Future<Widget> pay1() async {
+  pay1() async {
     print("-------------pay1-----------------------");
     await for (var snapshot in _firestore
         .collection('new users')
@@ -792,7 +778,7 @@ class _TableWidgetState extends State<TableWidget> {
     }
   }
 
-  Future<Column> pay2(String userId) async {
+  pay2(String userId) async {
     print("jaya");
     await for (var snapshot in _firestore
         .collection('new users')
@@ -837,7 +823,7 @@ class _TableWidgetState extends State<TableWidget> {
     // TODO: implement initState
     super.initState();
     //subjectNotify();
-    pay1();
+    //pay1();
   }
 
   String document;
@@ -984,7 +970,7 @@ class _TableWidgetState extends State<TableWidget> {
               ? staffDb()
               : flag == 2
                   ? studentDb()
-                  : pay1()
+                  : paymentDb(),
         ],
       ),
     );

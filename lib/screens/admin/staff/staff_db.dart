@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_live/models/routing.dart';
 import 'package:ocean_live/screens/admin/Details.dart';
 import 'package:ocean_live/screens/admin/batch_schedule.dart';
+import 'package:ocean_live/screens/admin/batch_students.dart';
 import 'package:ocean_live/screens/admin/payment/edit_payment.dart';
 import 'package:ocean_live/screens/admin/payment/view_payment.dart';
 import 'package:ocean_live/screens/admin/staff/edit_staff.dart';
@@ -10,16 +11,18 @@ import 'package:ocean_live/screens/admin/staff/view_staff.dart';
 import 'package:ocean_live/screens/admin/student/update_student.dart';
 import 'package:ocean_live/screens/admin/student/view_student.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class StaffDb extends StatefulWidget {
   StaffDb(
       {this.trainername,
-        this.email,
-        this.address,
-        this.dateofbirth,
-        this.dateofjoining,
-        this.mobilenumber,
-        this.qualification,
-        this.trainerImage});
+      this.email,
+      this.address,
+      this.dateofbirth,
+      this.dateofjoining,
+      this.mobilenumber,
+      this.qualification,
+      this.trainerImage});
   String trainername;
   String address;
   String mobilenumber;
@@ -33,6 +36,12 @@ class StaffDb extends StatefulWidget {
 }
 
 class _StaffDbState extends State<StaffDb> {
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Map<String, List> studentList = {};
+  List<Widget> cards = [];
+  final _count = ValueNotifier(0);
+
   @override
   Widget build(BuildContext context) {
     return Table(
@@ -76,18 +85,18 @@ class _StaffDbState extends State<StaffDb> {
                       displayDialog(
                           name: flag == 1
                               ? ViewStaffDetails(
-                            trainerImage: widget.trainerImage,
-                            trainername: widget.trainername,
-                            qualification: widget.qualification,
-                            mobilenumber: widget.mobilenumber,
-                            email: widget.email,
-                            address: widget.address,
-                            dateofbirth: widget.dateofbirth,
-                            courseenrool: widget.dateofjoining,
-                          )
+                                  trainerImage: widget.trainerImage,
+                                  trainername: widget.trainername,
+                                  qualification: widget.qualification,
+                                  mobilenumber: widget.mobilenumber,
+                                  email: widget.email,
+                                  address: widget.address,
+                                  dateofbirth: widget.dateofbirth,
+                                  courseenrool: widget.dateofjoining,
+                                )
                               : flag == 2
-                              ? ViewStudentDetails()
-                              : ViewPayment(),
+                                  ? ViewStudentDetails()
+                                  : ViewPayment(),
                           context: context);
                     },
                     child: Icon(FontAwesomeIcons.elementor, size: 15),
@@ -100,18 +109,18 @@ class _StaffDbState extends State<StaffDb> {
                         displayDialog(
                             name: flag == 1
                                 ? EditStaffDetails(
-                              trainerImage: widget.trainerImage,
-                              trainername: widget.trainername,
-                              qualification: widget.qualification,
-                              mobilenumber: widget.mobilenumber,
-                              email: widget.email,
-                              address: widget.address,
-                              dateofbirth: widget.dateofbirth,
-                              dateofjoining: widget.dateofjoining,
-                            )
+                                    trainerImage: widget.trainerImage,
+                                    trainername: widget.trainername,
+                                    qualification: widget.qualification,
+                                    mobilenumber: widget.mobilenumber,
+                                    email: widget.email,
+                                    address: widget.address,
+                                    dateofbirth: widget.dateofbirth,
+                                    dateofjoining: widget.dateofjoining,
+                                  )
                                 : flag == 2
-                                ? UpdateStudentDetails()
-                                : EditPay(),
+                                    ? UpdateStudentDetails()
+                                    : EditPay(),
                             context: context);
                       },
                       child: Icon(FontAwesomeIcons.pencilAlt, size: 15)),

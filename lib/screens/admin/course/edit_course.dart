@@ -735,9 +735,7 @@ class _EditCourseState extends State<EditCourse> {
               ),
               TextField(
                 onChanged: (value) {
-                  //print(value);
                   sectionvalue = value;
-                  //print(sectionvalue);
                 },
                 decoration: customDecor(title: "Enter Section name"),
               ),
@@ -830,10 +828,6 @@ class _EditCourseState extends State<EditCourse> {
             onChanged: (val) {
               chapter[key][index] = val;
               chaptervalue = chapter[key][index];
-              //chaptervalue = val;
-
-              //print(val);
-              //print(subject);
             },
             controller: TextEditingController(text: chapter[key][index]),
             decoration: courseIconDecor(
@@ -919,96 +913,6 @@ class SyllabusDb extends StatefulWidget {
 }
 
 class _SyllabusDbState extends State<SyllabusDb> {
-  chapterSubWidget(context, index, key) {
-    List<String> subject = [];
-
-    return Column(
-      children: [
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          child: TextField(
-            textInputAction: TextInputAction.next,
-            onEditingComplete: () => FocusScope.of(context).nextFocus(),
-            onChanged: (val) {
-              chapter[key][index] = val;
-              chaptervalue = chapter[key][index];
-              //chaptervalue = val;
-
-              //print(val);
-              //print(subject);
-            },
-            controller: TextEditingController(text: chapter[key][index]),
-            decoration: courseIconDecor(
-                title: "Enter Chapter name",
-                icon: Icon(
-                  FontAwesomeIcons.times,
-                  color: Colors.red,
-                ),
-                onPress: () {
-                  setState(() {
-                    chapter[key].removeAt(index);
-                    //
-                    // _firestore
-                    //     .collection("course")
-                    //     .doc(courseName.text)
-                    //     .collection('syllabus')
-                    //     .add({
-                    //   "section": sectionvalue,
-                    //   "chapter": FieldValue.arrayUnion(subject),
-                    // });
-                  });
-                },
-                context: context),
-          ),
-        ),
-      ],
-    );
-  }
-
-  chapterMainWidget(key) {
-    print("cmw $key");
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: chapter[key].length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: chapterSubWidget(context, index, key),
-          key: key,
-        );
-      },
-    );
-  }
-
-  InputDecoration courseIconDecor(
-      {title, contentPadding = 25, icon, context, onPress}) {
-    return InputDecoration(
-      contentPadding: EdgeInsets.all(contentPadding),
-      isDense: true,
-      suffixIcon: GestureDetector(
-        child: IconButton(
-          icon: icon,
-          onPressed: onPress,
-        ),
-      ),
-      floatingLabelBehavior: FloatingLabelBehavior.never,
-      enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
-          borderSide: BorderSide(width: 1, color: Colors.black54)),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        borderSide: BorderSide(width: 1, color: Colors.blueAccent),
-      ),
-      labelText: title,
-      labelStyle: TextStyle(
-          //color: Colors.black,
-          color: Color(0xff7E7E7E),
-          fontSize: 19,
-          fontWeight: FontWeight.w600),
-    );
-  }
-
   TextEditingController sections;
   TextEditingController chapters;
 
@@ -1022,14 +926,12 @@ class _SyllabusDbState extends State<SyllabusDb> {
     // TODO: implement initState
     super.initState();
     sections = TextEditingController(text: widget.section);
-    //chapters = TextEditingController(text: widget.chapter);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // sectionMainWidget(),
         SizedBox(
           height: 20,
         ),
@@ -1094,30 +996,29 @@ class _SyllabusDbState extends State<SyllabusDb> {
                 height: 20,
               ),
               //widget.chapter.,
-              ///todo add new chapter
-              Row(children: [
-                Container(
-                  padding: EdgeInsets.only(left: 50),
-                  child: aCustomButtom(
-                      text: "Add new chapter",
-                      iconData: FontAwesomeIcons.plus,
-                      // buttonClick: () {
-                      //   setState(() {
-                      //     // chapterMainWidget();
-                      //     List n = chapter[key];
-                      //     n.add("");
-                      //     chapter[key] = n;
-                      //     print("latha");
-                      //   });
-                      //   setState(() {
-                      //     subject.add(chaptervalue);
-                      //     print(subject);
-                      //   });
-                      // },
-                      fontSize: 22,
-                      iconSize: 30),
-                ),
-              ]),
+              ///todo add new chapter in next version
+              // Row(children: [
+              //   Container(
+              //     padding: EdgeInsets.only(left: 50),
+              //     child: aCustomButtom(
+              //         text: "Add new chapter",
+              //         iconData: FontAwesomeIcons.plus,
+              //         buttonClick: () {
+              //           setState(() {
+              //             List n = chapter[sectionvalue];
+              //             n.add("");
+              //             chapter[sectionvalue] = n;
+              //             print("latha");
+              //           });
+              //           setState(() {
+              //             subject.add(chaptervalue);
+              //             print(subject);
+              //           });
+              //         },
+              //         fontSize: 22,
+              //         iconSize: 30),
+              //   ),
+              // ]),
 
               SizedBox(
                 height: 30,
@@ -1128,197 +1029,4 @@ class _SyllabusDbState extends State<SyllabusDb> {
       ],
     );
   }
-
-//   Widget sectionMainWidget() {
-//     print("Key size ${chapter.keys.length}");
-//     return ListView.builder(
-//       shrinkWrap: true,
-//       itemCount: chapter.keys.length,
-//       itemBuilder: (context, key) {
-//         return ListTile(
-//           title: sectionSubWidget(
-//             key: key,
-//           ),
-//         );
-//       },
-//     );
-//   }
-//
-//   Widget sectionSubWidget({key, String holdsub}) {
-//     print("Sub $key");
-//     return Column(
-//       children: [
-//         SizedBox(
-//           height: 30,
-//         ),
-//         Container(
-//           decoration: BoxDecoration(
-//               borderRadius: BorderRadius.circular(10.0),
-//               color: Colors.white,
-//               border: Border.all(color: Color(0xFFB3B3B3), width: 2)),
-//           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-//           child: Column(
-//             children: [
-//               Padding(
-//                 padding: const EdgeInsets.only(right: 20),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.end,
-//                   crossAxisAlignment: CrossAxisAlignment.end,
-//                   children: [
-//                     outlinebutton(
-//                         text: "Discard",
-//                         onPress: () {},
-//                         fontSize: 25,
-//                         paddingSize: 15,
-//                         width: 200),
-//                     SizedBox(
-//                       width: 30,
-//                     ),
-//                     button(
-//                         text: "Save",
-//                         onPress: () {},
-//                         fontSize: 25,
-//                         paddingSize: 15,
-//                         width: 200),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: 30,
-//               ),
-//               TextField(
-//                 controller: sections,
-//                 decoration: customDecor(title: "Enter Section name"),
-//               ),
-//               // Column(
-//               //   children: customWidget,
-//               // ),
-//               Container(
-//                 child: chapterMainWidget(key),
-//                 padding: EdgeInsets.symmetric(horizontal: 40),
-//               ),
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               Row(children: [
-//                 Container(
-//                   padding: EdgeInsets.only(left: 50),
-//                   child: aCustomButtom(
-//                       text: "Add new chapter",
-//                       iconData: FontAwesomeIcons.plus,
-//                       buttonClick: () {
-//                         setState(() {
-//                           List n = chapter[key];
-//                           n.add("");
-//                           chapter[key] = n;
-//                         });
-//                         setState(() {
-//                           setState(() {
-//                             subject.add(chaptervalue);
-//                             print(subject);
-//                           });
-//                         });
-//                       },
-//                       fontSize: 22,
-//                       iconSize: 30),
-//                 ),
-//               ]),
-//               SizedBox(
-//                 height: 30,
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget chapterMainWidget(key) {
-//     print("cmw $key");
-//     return ListView.builder(
-//       shrinkWrap: true,
-//       itemCount: chapter[key].length,
-//       itemBuilder: (context, index) {
-//         return ListTile(
-//           title: chapterSubWidget(context, index, key),
-//         );
-//       },
-//     );
-//   }
-//
-//   Widget chapterSubWidget(context, index, key) {
-//     List<String> subject = [];
-//
-//     return Column(
-//       children: [
-//         SizedBox(
-//           height: 20,
-//         ),
-//         Container(
-//           child: TextField(
-//             textInputAction: TextInputAction.next,
-//             onEditingComplete: () => FocusScope.of(context).nextFocus(),
-//             onChanged: (val) {
-//               chapter[key][index] = val;
-//               chaptervalue = chapter[key][index];
-//               //chaptervalue = val;
-//
-//               //print(val);
-//               //print(subject);
-//             },
-//             controller: TextEditingController(text: chapter[key][index]),
-//             decoration: courseIconDecor(
-//                 title: "Enter Chapter name",
-//                 icon: Icon(
-//                   FontAwesomeIcons.times,
-//                   color: Colors.red,
-//                 ),
-//                 onPress: () {
-//                   setState(() {
-//                     chapter[key].removeAt(index);
-//                     //
-//                     // _firestore
-//                     //     .collection("course")
-//                     //     .doc(courseName.text)
-//                     //     .collection('syllabus')
-//                     //     .add({
-//                     //   "section": sectionvalue,
-//                     //   "chapter": FieldValue.arrayUnion(subject),
-//                     // });
-//                   });
-//                 },
-//                 context: context),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   InputDecoration courseIconDecor(
-//       {title, contentPadding = 25, icon, context, onPress}) {
-//     return InputDecoration(
-//       contentPadding: EdgeInsets.all(contentPadding),
-//       isDense: true,
-//       suffixIcon: GestureDetector(
-//         child: IconButton(
-//           icon: icon,
-//           onPressed: onPress,
-//         ),
-//       ),
-//       floatingLabelBehavior: FloatingLabelBehavior.never,
-//       enabledBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.all(Radius.circular(8)),
-//           borderSide: BorderSide(width: 1, color: Colors.black54)),
-//       focusedBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.all(Radius.circular(8)),
-//         borderSide: BorderSide(width: 1, color: Colors.blueAccent),
-//       ),
-//       labelText: title,
-//       labelStyle: TextStyle(
-//           //color: Colors.black,
-//           color: Color(0xff7E7E7E),
-//           fontSize: 19,
-//           fontWeight: FontWeight.w600),
-//     );
-//   }
 }

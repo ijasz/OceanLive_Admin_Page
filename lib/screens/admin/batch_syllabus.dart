@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,13 +21,107 @@ class BatchSyllebus extends StatefulWidget {
 class _BatchSyllebusState extends State<BatchSyllebus> {
   bool isTrue = false;
   Map boolContent = {};
-  TextEditingController _scheduleDate = TextEditingController();
-  TextEditingController _scheduletime = TextEditingController();
+
+  TextEditingController _duration = TextEditingController();
   TextEditingController _disctription = TextEditingController();
   TextEditingController _zoomLink = TextEditingController();
   TextEditingController _zoopPassword = TextEditingController();
 
   List<String> timeAndDate = [];
+
+  String time;
+
+  /// ttime module
+  String _hour, _minute, _time;
+
+  String dateTime;
+  num year;
+  num day;
+  num month;
+  num hour;
+  num minute;
+
+  DateTime selectedDate = DateTime.now();
+
+  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+  DateTime timing;
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2025));
+
+    final TimeOfDay tpicked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        print(tpicked);
+
+        print(selectedDate.compareTo(DateTime.now()));
+        var a = '$selectedDate $tpicked';
+        timing = DateTime(selectedDate.year, selectedDate.month,
+            selectedDate.day, tpicked.hour, tpicked.minute);
+        print(DateTime);
+        print('=====================');
+        print(timing);
+        print("jaya");
+        print(timing.runtimeType);
+        _dateController.text = DateFormat.yMd().format(selectedDate);
+      });
+    year = int.parse(DateFormat('y').format(selectedDate));
+    month = int.parse(DateFormat('MM').format(selectedDate));
+    day = int.parse(DateFormat('d').format(selectedDate));
+    print(year);
+    print(month);
+    print(day);
+  }
+
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (picked != null)
+      setState(() {
+        selectedTime = picked;
+        _hour = selectedTime.hour.toString();
+        _minute = selectedTime.minute.toString();
+        _time = _hour + ' : ' + _minute;
+        _timeController.text = _time;
+        _timeController.text = formatDate(
+            DateTime(selectedDate.year, selectedDate.month, selectedDate.day,
+                selectedTime.hour, selectedTime.minute),
+            [hh, ':', nn]).toString();
+      });
+    print(_hour);
+    print(_minute);
+    hour = int.parse(_hour);
+    minute = int.parse(_minute);
+    var a = ("${_timeController.text} ${_dateController.text}");
+    print(a);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _dateController.text = DateFormat.yMd().format(DateTime.now());
+
+    _timeController.text = formatDate(
+        DateTime(2019, 08, 1, DateTime.now().hour, DateTime.now().minute),
+        [hh, ':', nn, " ", am]).toString();
+    super.initState();
+  }
+
+  /// time module
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +157,7 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
                       return TopicWidget(
                         content: boolContent,
                         dateAndTime: timeAndDate,
+                        trainer: widget.trinerID,
                       );
                       // return Text("welcome");
                     }
@@ -82,20 +178,24 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
                           color: Colors.white,
                           fontSize: 23),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       print('${boolContent} checkListttttttttttttttttttttt');
+                      print('${TopicWidget.id} 11111111111111111111111');
                       for (var scheduleUpdate in boolContent.entries) {
                         bool done = scheduleUpdate.value;
                         String doneTopic = scheduleUpdate.key;
                         print(done);
+                        print("done1 ${done}");
+                        print("doneTopic1 ${doneTopic}");
                         _firestore
                             .collection('course')
                             .doc(widget.trinerID)
                             .collection("syllabus")
-                            .doc(doneTopic)
-                            .update({'flag': done});
+                            .doc(TopicWidget.id)
+                            .update({'flag': true});
                       }
                       _showDialog();
+                      scheduleId();
                     },
                   ),
                 ),
@@ -105,44 +205,65 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
         ));
   }
 
+  List horizondal = [];
+  void scheduleId() async {
+    print("+++++++++++++++++");
+    print(widget.trinerID);
+    await for (var snapshot in _firestore
+        .collection('course')
+        .doc(widget.trinerID)
+        .collection("schedule")
+        .snapshots(includeMetadataChanges: true)) {
+      print("checking");
+      for (var message in snapshot.docs) {
+        print("check1");
+        String id = message.id;
+        horizondal.add(id);
+        print("${horizondal}zoom_link");
+      }
+    }
+    // _saveSchedule();
+  }
+
   void _saveSchedule() async {
     print('${boolContent} checkListttttttttttttttttttttt');
     for (var scheduleUpdate in boolContent.entries) {
       bool done = scheduleUpdate.value;
       String doneTopic = scheduleUpdate.key;
-      if (done) {
-        // _firestore
-        //     .collection('course')
-        //     .doc(widget.trinerID)
-        //     .collection("syllabus")
-        //     .doc(doneTopic)
-        //     .update({'time': '${_scheduleDate.text}  ${_scheduletime.text}'});
+      print("done ${done}");
+      print("doneTopic ${doneTopic}");
+      print("horizondal list ${horizondal}");
+      if (done && !horizondal.contains(doneTopic)) {
+        print(done);
+        print("checking the process of schedule");
+        print(doneTopic);
         _firestore
             .collection('course')
             .doc(widget.trinerID)
             .collection("schedule")
             .doc(doneTopic)
             .set({
-          'date': '${_scheduleDate.text} ',
-          'time': "${_scheduletime.text}",
+          'date': timing,
+          'duration': int.parse(_duration.text),
           'description': _disctription.text,
           'zoom_link': _zoomLink.text,
           'zoom_password': _zoopPassword.text
         });
-      } else {
-        _firestore
-            .collection('course')
-            .doc(widget.trinerID)
-            .collection("syllabus")
-            .doc(doneTopic)
-            .update({'time': null});
-        _firestore
-            .collection('course')
-            .doc(widget.trinerID)
-            .collection("schedule")
-            .doc(doneTopic)
-            .delete();
       }
+      // else {
+      //   // _firestore
+      //   //     .collection('course')
+      //   //     .doc(widget.trinerID)
+      //   //     .collection("schedule")
+      //   //     .doc(doneTopic)
+      //   //     .update({'time': null});
+      //   //   // _firestore
+      //   //   //     .collection('course')
+      //   //   //     .doc(widget.trinerID)
+      //   //   //     .collection("schedule")
+      //   //   //     .doc(doneTopic)
+      //   //   //     .delete();
+      // }
     }
   }
 
@@ -167,25 +288,31 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
                   ScheduleAlertTextField(
                     hintText: 'Select Date',
                     icon: Icon(FontAwesomeIcons.calendarAlt),
-                    controller: _scheduleDate,
+                    controller: _dateController,
                     readOnly: true,
                     onPressed: () async {
-                      final selectedDate = await _selectDateTime(context);
-                      print(selectedDate);
-                      _scheduleDate.text =
-                          DateFormat("dd-MM-y").format(selectedDate);
-                      print('${_scheduleDate.text}');
+                      _selectDate(context);
+                      // final selectedDate = await _selectDateTime(context);
+                      // print(selectedDate);
+                      // _scheduleDate.text =
+                      //     DateFormat("dd-MM-y").format(selectedDate);
+                      // print('${_scheduleDate.text}');
                     },
                   ),
+                  // ScheduleAlertTextField(
+                  //   hintText: 'Select Time',
+                  //   controller: _timeController,
+                  //   icon: Icon(Icons.access_time_outlined),
+                  //   readOnly: true,
+                  //   onPressed: () async {
+                  //     // await _selectTime(context);
+                  //     // _scheduletime.text = selectedTime.toString();
+                  //   },
+                  // ),
                   ScheduleAlertTextField(
-                    hintText: 'Select Time',
-                    controller: _scheduletime,
-                    icon: Icon(Icons.access_time_outlined),
-                    readOnly: true,
-                    onPressed: () async {
-                      await _selectTime(context);
-                      _scheduletime.text = selectedTime.toString();
-                    },
+                    hintText: "duration",
+                    icon: Icon(Icons.timer),
+                    controller: _duration,
                   ),
                   ScheduleAlertTextField(
                     hintText: "Description",
@@ -255,26 +382,27 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
     );
   }
 
-  var selectedTime;
-  Future<Null> _selectTime(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    MaterialLocalizations localizations = MaterialLocalizations.of(context);
-    String formattedTime =
-        localizations.formatTimeOfDay(picked, alwaysUse24HourFormat: false);
-    if (formattedTime != null) {
-      selectedTime = formattedTime;
-    }
-  }
+  // var selectedTime;
+  // Future<Null> _selectTime(BuildContext context) async {
+  //   final TimeOfDay picked = await showTimePicker(
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //   );
+  //   MaterialLocalizations localizations = MaterialLocalizations.of(context);
+  //   String formattedTime =
+  //       localizations.formatTimeOfDay(picked, alwaysUse24HourFormat: false);
+  //   if (formattedTime != null) {
+  //     selectedTime = formattedTime;
+  //   }
+  // }
 
-  Future<DateTime> _selectDateTime(BuildContext context) {
-    return showDatePicker(
+  Future<DateTime> _selectDateTime(BuildContext context) async {
+    await showDatePicker(
         context: context,
         initialDate: DateTime.now().add(Duration(seconds: 1)),
         firstDate: DateTime.now(),
         lastDate: DateTime(DateTime.now().year + 1));
+    _selectTime(context);
   }
 }
 
@@ -318,9 +446,16 @@ class ScheduleAlertTextField extends StatelessWidget {
 }
 
 class TopicWidget extends StatefulWidget {
+  static String id;
   Map content;
   List dateAndTime;
-  TopicWidget({this.content, this.dateAndTime});
+  String trainer;
+
+  TopicWidget({
+    this.content,
+    this.dateAndTime,
+    this.trainer,
+  });
   @override
   _TopicWidgetState createState() => _TopicWidgetState();
 }
@@ -339,10 +474,10 @@ class _TopicWidgetState extends State<TopicWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildRow(
-              section: topics[index],
-              isIcon: isScheduled[index],
-              dateAndTime: widget.dateAndTime[index],
-            ),
+                section: topics[index],
+                isIcon: isScheduled[index],
+                dateAndTime: widget.dateAndTime[index],
+                trainer: widget.trainer),
           ],
         );
       },
@@ -350,9 +485,25 @@ class _TopicWidgetState extends State<TopicWidget> {
     // return Text("welcome");
   }
 
-  Container buildRow({section, isIcon, dateAndTime}) {
+  void syllabusId(String trainer, String section) async {
+    await for (var snapshot in _firestore
+        .collection('course')
+        .doc(trainer)
+        .collection("syllabus")
+        .where("section", isEqualTo: section)
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        TopicWidget.id = message.id;
+        print(TopicWidget.id);
+        print(trainer);
+        print(section);
+      }
+    }
+  }
+
+  Container buildRow({section, isIcon, dateAndTime, trainer}) {
     return Container(
-      width: 355,
+      width: 600,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -369,15 +520,19 @@ class _TopicWidgetState extends State<TopicWidget> {
                         : FontAwesomeIcons.checkCircle,
                   ),
                   onPressed: () {
+                    syllabusId(trainer, section);
                     setState(() {
                       widget.content[section] = !isIcon;
+                      print("${isIcon}isIcon");
+                      print(
+                          "${widget.content[section]}widget.content[section]");
                     });
                   }),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 height: 50,
-                width: 300,
+                width: 500,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -393,6 +548,21 @@ class _TopicWidgetState extends State<TopicWidget> {
                       fontSize: 22.0),
                 ),
               ),
+              IconButton(
+                  tooltip: "Reschedule",
+                  icon: Icon(
+                    FontAwesomeIcons.times,
+                    color: Colors.red,
+                  ),
+                  onPressed: () async {
+                    syllabusId(trainer, section);
+                    // _firestore
+                    //     .collection('course')
+                    //     .doc(trainer)
+                    //     .collection("syllabus")
+                    //     .doc(section)
+                    //     .update({'flag': false});
+                  }),
             ],
           ),
           Container(

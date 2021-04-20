@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:ocean_live/models/routing.dart';
+import 'package:ocean_live/screens/admin/batch_syllabus.dart';
 import 'package:ocean_live/screens/admin/home.dart';
 import 'package:provider/provider.dart';
 // import 'package:velocity_x/velocity_x.dart';
@@ -85,24 +87,9 @@ class _BatchScheduleState extends State<BatchSchedule> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // searchBachId('OCNBK08');
     getBatchID();
-
-    // getBatchIdFromDB();
   }
 
-  // GestureDetector(
-  // onTap: () {
-  // Provider.of<Routing>(context, listen: false).updateRouting(
-  // widget: Details(
-  // text: 'staff',
-  // ));
-  // print('dddddddddddd');
-  // },
-  // child: Text(
-  // 'gggggggggggggggggggggggg',
-  // ),
-  // )
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -114,7 +101,44 @@ class _BatchScheduleState extends State<BatchSchedule> {
             runSpacing: 25,
             spacing: 25,
             alignment: WrapAlignment.center,
-            children: cards,
+            children: [
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('course').snapshots(),
+                // ignore: missing_return
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Text("Loading........");
+                  } else {
+                    final messages = snapshot.data.docs;
+                    List<BatchScheduleDb> staffSchedule = [];
+                    for (var message in messages) {
+                      final trainerName = message.data()['trainername'];
+                      if (trainerName == "Brinda Karthik") {
+                        final id = message.data()["batchid"];
+                        final trainer = trainerName;
+                        final courseImage = message.data()["img"];
+                        final duration = message.data()["duration"];
+                        final courseName = message.data()["coursename"];
+                        print("id${id}");
+
+                        final staffData = BatchScheduleDb(
+                          text: id,
+                          course: courseName,
+                          duration: duration,
+                          trainerName: trainer,
+                          image: courseImage,
+                        );
+                        staffSchedule.add(staffData);
+                      }
+                    }
+                    return Wrap(
+                      alignment: WrapAlignment.center,
+                      children: staffSchedule,
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -300,6 +324,127 @@ class _BatchIDCardState extends State<BatchIDCard> {
                   ],
                 )),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class BatchScheduleDb extends StatefulWidget {
+  String text;
+  String course;
+  String image;
+  String duration;
+  String trainerName;
+  BatchScheduleDb(
+      {this.text, this.course, this.trainerName, this.image, this.duration});
+  @override
+  _BatchScheduleDbState createState() => _BatchScheduleDbState();
+}
+
+class _BatchScheduleDbState extends State<BatchScheduleDb> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      width: 300,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(0.3),
+                blurRadius: 6,
+                offset: Offset(0, 3))
+          ]),
+      margin: EdgeInsets.all(30),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "${widget.text}",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xff002C47),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Ubuntu"),
+                  ),
+                  Text(
+                    "${widget.course}",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xff002C47),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Ubuntu"),
+                  ),
+                  Text(
+                    "${widget.duration}",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xff002C47),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Ubuntu"),
+                  ),
+                  Text(
+                    "${widget.trainerName}",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xff002C47),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Ubuntu"),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(110),
+                    child: Image.network(
+                      widget.image,
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.centerLeft,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ButtonTheme(
+                minWidth: 200,
+                height: 30,
+                child: RaisedButton(
+                    child: Text(
+                      "SCHEDULE",
+                      style: TextStyle(
+                          color: Color(0xFFFFFFFF),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Gilroy"),
+                    ),
+                    color: Color(0xFF36BAFF),
+                    onPressed: () {
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(
+                              widget: BatchSyllebus(
+                        trinerID: widget.text,
+                      ));
+                    }),
+              ),
+            ],
+          )
         ],
       ),
     );
