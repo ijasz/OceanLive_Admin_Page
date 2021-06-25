@@ -12,6 +12,8 @@ import 'package:ocean_live/screens/admin/batch_students.dart';
 import '../../constants.dart';
 
 class BatchSchedule extends StatefulWidget {
+  String trainer;
+  BatchSchedule({this.trainer});
   @override
   _BatchScheduleState createState() => _BatchScheduleState();
 }
@@ -28,7 +30,9 @@ class _BatchScheduleState extends State<BatchSchedule> {
   getBatchID() async {
     await for (var batchIdAdd in _firestore
         .collection('course')
-        .where('trainername', isEqualTo: 'Brindha Karthik')
+
+        ///brindha Karthik
+        .where('trainername', isEqualTo: widget.trainer)
         .snapshots(includeMetadataChanges: true)) {
       for (var bId in batchIdAdd.docs) {
         await searchBachId(bId.data()['batchid']);
@@ -92,6 +96,7 @@ class _BatchScheduleState extends State<BatchSchedule> {
 
   @override
   Widget build(BuildContext context) {
+    print("syllabus${widget.trainer}");
     return Expanded(
       flex: 6,
       child: Padding(
@@ -113,7 +118,7 @@ class _BatchScheduleState extends State<BatchSchedule> {
                     List<BatchScheduleDb> staffSchedule = [];
                     for (var message in messages) {
                       final trainerName = message.data()['trainername'];
-                      if (trainerName == "Brinda Karthik") {
+                      if (trainerName == widget.trainer) {
                         final id = message.data()["batchid"];
                         final trainer = trainerName;
                         final courseImage = message.data()["img"];

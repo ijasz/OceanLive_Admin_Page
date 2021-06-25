@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_format/date_format.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,7 @@ class AddCourse extends StatefulWidget {
 
 class _AddCourseState extends State<AddCourse> {
   String getLink;
+  Uint8List uploadfile;
   var pdfLink;
 
   Map checkbox = {"online": true, "offline": false};
@@ -47,7 +49,7 @@ class _AddCourseState extends State<AddCourse> {
   Map chapter = {};
   List section = [];
   int count = 0;
-  Uint8List uploadfile;
+
   String filename;
   String sectionvalue;
   String chaptervalue;
@@ -59,6 +61,63 @@ class _AddCourseState extends State<AddCourse> {
   String trainerID;
 
   String contentType;
+
+  ///time start
+  String _hour, _minute, _time;
+
+  String dateTime;
+  num year;
+  num day;
+  num month;
+  num hour;
+  num minute;
+
+  DateTime selectedDate = DateTime.now();
+
+  TimeOfDay selectedTime = TimeOfDay(hour: 00, minute: 00);
+
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+  DateTime timing;
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2025));
+
+    final TimeOfDay tpicked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        print(tpicked);
+
+        print(selectedDate.compareTo(DateTime.now()));
+        var a = '$selectedDate $tpicked';
+        timing = DateTime(selectedDate.year, selectedDate.month,
+            selectedDate.day, tpicked.hour, tpicked.minute);
+        print(DateTime);
+        print('=====================');
+        print(timing);
+        print("jaya");
+        print(timing.runtimeType);
+        _dateController.text = DateFormat.yMd().format(selectedDate);
+      });
+    year = int.parse(DateFormat('y').format(selectedDate));
+    month = int.parse(DateFormat('MM').format(selectedDate));
+    day = int.parse(DateFormat('d').format(selectedDate));
+    print(year);
+    print(month);
+    print(day);
+  }
+
+  ///time end
+
   @override
   void initState() {
     // TODO: implement initState
@@ -70,46 +129,6 @@ class _AddCourseState extends State<AddCourse> {
 
   var syllabusCount;
   List syllabusFormat = [];
-  // syllabusId() async {
-  //   print("------------------------------------");
-  //   await for (var snapshot in _firestore
-  //       .collection('course')
-  //       .doc(trainerID)
-  //       .collection("syllabus")
-  //       .snapshots(includeMetadataChanges: true)) {
-  //     for (var message in snapshot.docs) {
-  //       syllabusCount = message.data()['section'];
-  //       print("${syllabusCount}syllabuscount");
-  //       syllabusFormat.add(syllabusCount);
-  //     }
-  //     print("${syllabusFormat.length}lengthlast");
-  //     print("${syllabusFormat}size");
-  //   }
-  // }
-
-  String selectDate = 'select Date';
-  Future<DateTime> _selectDateTime(BuildContext context) {
-    return showDatePicker(
-        context: context,
-        initialDate: DateTime.now().add(Duration(seconds: 1)),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(DateTime.now().year + 1));
-  }
-
-  var selectedTime;
-  String selectTime = 'Select time';
-  Future<Null> _selectTime(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    MaterialLocalizations localizations = MaterialLocalizations.of(context);
-    String formattedTime =
-        localizations.formatTimeOfDay(picked, alwaysUse24HourFormat: false);
-    if (formattedTime != null) {
-      selectedTime = formattedTime;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -335,46 +354,39 @@ class _AddCourseState extends State<AddCourse> {
                             text: "Select Date",
                             iconData: FontAwesomeIcons.calendarAlt,
                             buttonClick: () async {
-                              final selectedDate =
-                                  await _selectDateTime(context);
-                              print(selectedDate);
-                              setState(() {
-                                selectDate =
-                                    DateFormat("dd-MM-y").format(selectedDate);
-                              });
-                              print('${selectDate}');
+                              _selectDate(context);
                             },
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             child: Text(
-                              selectDate,
+                              _dateController.text,
                               style:
                                   TextStyle(fontSize: 20, fontFamily: 'Gilroy'),
                             ),
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          aCustomButtom(
-                            text: "Select time",
-                            iconData: FontAwesomeIcons.clock,
-                            buttonClick: () async {
-                              await _selectTime(context);
-                              setState(() {
-                                selectTime = selectedTime.toString();
-                              });
-                            },
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15),
-                            child: Text(selectTime,
-                                style: TextStyle(
-                                    fontSize: 20, fontFamily: 'Gilroy')),
-                          )
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     aCustomButtom(
+                      //       text: "Select time",
+                      //       iconData: FontAwesomeIcons.clock,
+                      //       buttonClick: () async {
+                      //         await _selectTime(context);
+                      //         setState(() {
+                      //           selectTime = selectedTime.toString();
+                      //         });
+                      //     ),
+                      //     Padding(
+                      //       padding: EdgeInsets.symmetric(horizontal: 15),
+                      //       child: Text(selectTime,
+                      //           style: TextStyle(
+                      //               fontSize: 20, fontFamily: 'Gilroy')),
+                      //     )
+                      //   ],
+                      // ),            //       },
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -579,8 +591,8 @@ class _AddCourseState extends State<AddCourse> {
                                           "trainername": trainer.text,
                                           'batchid': trainerID,
                                           'duration': duration.text,
-                                          "date": selectDate,
-                                          "time": selectedTime,
+                                          "date1": timing,
+                                          "date": timing,
                                         })
                                       : _firestore
                                           .collection("offline_course")

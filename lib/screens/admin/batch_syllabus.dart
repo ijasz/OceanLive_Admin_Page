@@ -110,6 +110,8 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
     print(a);
   }
 
+  ///end of time module
+
   @override
   void initState() {
     // TODO: implement initState
@@ -292,23 +294,8 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
                     readOnly: true,
                     onPressed: () async {
                       _selectDate(context);
-                      // final selectedDate = await _selectDateTime(context);
-                      // print(selectedDate);
-                      // _scheduleDate.text =
-                      //     DateFormat("dd-MM-y").format(selectedDate);
-                      // print('${_scheduleDate.text}');
                     },
                   ),
-                  // ScheduleAlertTextField(
-                  //   hintText: 'Select Time',
-                  //   controller: _timeController,
-                  //   icon: Icon(Icons.access_time_outlined),
-                  //   readOnly: true,
-                  //   onPressed: () async {
-                  //     // await _selectTime(context);
-                  //     // _scheduletime.text = selectedTime.toString();
-                  //   },
-                  // ),
                   ScheduleAlertTextField(
                     hintText: "duration",
                     icon: Icon(Icons.timer),

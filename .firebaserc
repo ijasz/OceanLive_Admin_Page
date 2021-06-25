@@ -1,13 +1,14 @@
 {
   "projects": {
     "oa": "ocean-live-project-ea2e7",
-    "default": "ocean-live-project-ea2e7"
+    "default": "ocean-live-project-ea2e7",
+    "new": "ocean-live-project-ea2e7"
   },
   "targets": {
     "ocean-live-project-ea2e7": {
       "hosting": {
         "admin": [
-          "oceanadminhosting"
+          "admin19a00"
         ]
       }
     }

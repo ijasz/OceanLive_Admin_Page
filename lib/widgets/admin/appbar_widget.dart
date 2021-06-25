@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ocean_live/login.dart';
+import 'package:ocean_live/main.dart';
 import 'package:ocean_live/models/routing.dart';
 import 'package:ocean_live/screens/admin/notification.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBarWidget extends StatelessWidget {
   @override
@@ -88,6 +91,51 @@ class AppBarWidget extends StatelessWidget {
                           ),
                           Text(
                             "Admin",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  color: Color(0xFF0090E9),
+                ),
+                SizedBox(
+                  width: 60.0,
+                ),
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  onPressed: () async {},
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: GestureDetector(
+                      onTap: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+
+                        await prefs.setString('username', null);
+                        OceanLive.username = null;
+                        print("logout session ${OceanLive.username}");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Icon(
+                              Icons.circle,
+                              size: 14,
+                              color: Colors.greenAccent,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            "Logout",
                             style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
                         ],

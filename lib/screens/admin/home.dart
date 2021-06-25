@@ -8,6 +8,7 @@ import 'package:ocean_live/screens/admin/certificate.dart';
 import 'package:ocean_live/screens/admin/client.dart';
 import 'package:ocean_live/screens/admin/company.dart';
 import 'package:ocean_live/screens/admin/course.dart';
+import 'package:ocean_live/screens/admin/manual%20payment.dart';
 import 'package:ocean_live/screens/admin/mentor.dart';
 import 'package:ocean_live/screens/admin/notification.dart';
 import 'package:ocean_live/screens/admin/upcoming_batch.dart';
@@ -37,6 +38,7 @@ class _AdminState extends State<Admin> {
     "Mentor": false,
     "Certificate": false,
     "Webinar": false,
+    "Manual Payment": false,
   };
 
   Widget contentWidget = Details(text: "staff");
@@ -107,6 +109,10 @@ class _AdminState extends State<Admin> {
                     text: "Webinar",
                     iconData: FontAwesomeIcons.tv,
                     widget: Webinar()),
+                menuItem(
+                    text: "Manual Payment",
+                    iconData: FontAwesomeIcons.googlePay,
+                    widget: ManualPay()),
               ],
             ),
           ),

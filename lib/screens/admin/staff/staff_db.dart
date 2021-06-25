@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_live/models/routing.dart';
@@ -150,8 +151,12 @@ class _StaffDbState extends State<StaffDb> {
                     child: RaisedButton(
                       padding: EdgeInsets.zero,
                       onPressed: () {
+                        print(widget.trainername);
                         Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: BatchSchedule());
+                            .updateRouting(
+                                widget: BatchSchedule(
+                          trainer: widget.trainername,
+                        ));
                       },
                     ),
                   ),
