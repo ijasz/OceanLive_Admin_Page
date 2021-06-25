@@ -723,32 +723,34 @@ class _TableWidgetState extends State<TableWidget> {
         // ignore: missing_return
 
         builder: (context, snapshot) {
-          print("${"docid"} jaya");
           if (!snapshot.hasData) {
             return Text("Loading.....");
           } else {
             print("${"docid"} thhhhhhhhhhhhhhhhh");
             final messages = snapshot.data.docs;
             List<PaymentDb> payment = [];
+
             for (var message in messages) {
+              print(
+                  '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ${message.data()}');
               final name = message.data()['name'];
-              final totalAmount = message.data()['totalamount'];
+              final totalAmount = message.data()['amount'];
               final amountPaid = message.data()['amountpaid'];
               final dueAmount = message.data()['dueamount'];
-              final paidDate = message.data()['paiddate'];
+              final paidDate = message.data()['date'];
               print("${paidDate}paidDate");
               final nextPayment = message.data()['nextpaymentdate'];
               print("${nextPayment}nextPayment");
-              final paymentMode = message.data()['paymentmode'];
+              final paymentMode = message.data()['paid_via'];
 
               final paymentData = PaymentDb(
-                student: name,
-                totalAmount: totalAmount,
-                amountPaid: amountPaid,
-                dueAmount: dueAmount,
-                paidDate: paidDate,
-                nextDate: nextPayment,
-                payMode: paymentMode,
+                student: '$name',
+                totalAmount: '$totalAmount',
+                amountPaid: '$amountPaid',
+                dueAmount: '$dueAmount',
+                paidDate: '$paidDate',
+                nextDate: '$nextPayment',
+                payMode: '$paymentMode',
               );
               // Text('$messageText from $messageSender');
               payment.add(paymentData);
