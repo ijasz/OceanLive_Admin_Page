@@ -19,22 +19,23 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4c1a96c-3111-4ddd-b906-518ab3d27fee" name="Default Changelist" comment="admin jaya">
+    <list default="true" id="a4c1a96c-3111-4ddd-b906-518ab3d27fee" name="Default Changelist" comment="admin thamizh">
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/flutter_assets/fonts/MaterialIcons-Regular.otf" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/fonts/MaterialIcons-Regular.otf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/admin/Details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/Details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618907780943</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="admin thamizh">
+      <created>1624612176286</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1624612176286</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,65 +162,48 @@
     <MESSAGE value="double tap error cleared" />
     <MESSAGE value="end of the day 27-03-2021" />
     <MESSAGE value="admin jaya" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin jaya" />
+    <MESSAGE value="admin thamizh" />
+    <option name="LAST_COMMIT_MESSAGE" value="admin thamizh" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="723" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1616479906952">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="100" y="100" width="1720" height="840" key="AVDManager" timestamp="1627292985785">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="723" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1616479906952" />
-    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1616476618987">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616476618987" />
-    <state width="1877" height="322" key="GridCell.Tab.0.bottom" timestamp="1624430599633">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="100" y="100" width="1720" height="840" key="AVDManager/0.0.1920.1080@0.0.1920.1080" timestamp="1627292985785" />
+    <state width="1860" height="474" key="GridCell.Tab.0.bottom" timestamp="1627134652307">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1624430599633" />
-    <state width="1877" height="322" key="GridCell.Tab.0.center" timestamp="1624430599632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1860" height="474" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1627134652307" />
+    <state width="1860" height="474" key="GridCell.Tab.0.center" timestamp="1627134652307">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1624430599632" />
-    <state width="1877" height="322" key="GridCell.Tab.0.left" timestamp="1624430599632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1860" height="474" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1627134652307" />
+    <state width="1860" height="474" key="GridCell.Tab.0.left" timestamp="1627134652307">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1624430599632" />
-    <state width="1877" height="322" key="GridCell.Tab.0.right" timestamp="1624430599633">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1860" height="474" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1627134652307" />
+    <state width="1860" height="474" key="GridCell.Tab.0.right" timestamp="1627134652307">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="322" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1624430599633" />
-    <state x="630" y="240" key="RollbackChangesDialog" timestamp="1615816080754">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="630" y="240" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615816080754" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1616824269063">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1616824269063" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1618907796490">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1860" height="474" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1627134652307" />
+    <state x="552" y="263" key="Vcs.Push.Dialog.v2" timestamp="1624612185643">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1618907796490" />
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616668840214">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616668840214" />
-    <state x="564" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1616752240869">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="564" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1616752240869" />
+    <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1624612185643" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1620190460007">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1620190460007" />
-    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1624370294693">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="667" y="263" width="585" height="615" key="find.popup" timestamp="1624860453490">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1624370294693" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1615791108542">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615791108542" />
+    <state x="667" y="263" width="585" height="615" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1624860453490" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -274,42 +265,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>491</line>
+          <line>493</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>510</line>
+          <line>512</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>511</line>
+          <line>513</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>512</line>
+          <line>514</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>474</line>
+          <line>476</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>544</line>
+          <line>546</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>543</line>
+          <line>545</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>545</line>
+          <line>547</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
@@ -330,7 +321,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/screens/admin/batch_syllabus.dart</url>
-          <line>395</line>
+          <line>397</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">

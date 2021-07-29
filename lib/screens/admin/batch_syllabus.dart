@@ -249,7 +249,9 @@ class _BatchSyllebusState extends State<BatchSyllebus> {
           'duration': int.parse(_duration.text),
           'description': _disctription.text,
           'zoom_link': _zoomLink.text,
-          'zoom_password': _zoopPassword.text
+          'zoom_password': _zoopPassword.text,
+          'vedio_link':
+              'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/live%20video%2Fvideo%20soon-01.png?alt=media&token=e17dc78d-fe7d-4728-961a-314f9bdfc4b5'
         });
       }
       // else {

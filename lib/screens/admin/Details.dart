@@ -712,7 +712,7 @@ class _TableWidgetState extends State<TableWidget> {
     StreamBuilder paymentList;
     print("${Course.studentid}");
     print("${"docid"} inner");
-    List collection = ["+91 1234567890", "+91 8015122373"];
+    List collection = ["+91 1234567890", "+91 8015122373", "+91 9789252402"];
     for (var i in collection) {
       paymentList = StreamBuilder<QuerySnapshot>(
         stream: _firestore
